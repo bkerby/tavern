@@ -1,6 +1,6 @@
-Welcome to Tavern
+# Welcome to Tavern 🍻🥃🥂🍷
 
-clone the repo
+pull the repo `git pull https://github.com/bkerby/tavern.git master`
 
-run# ionic serve . to see in web page.
-run# ionic seve --lab . to see on both android and IOS.
+`ionic serve` to see in web page.
+`ionic seve --lab` to see on both android and IOS.
