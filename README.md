@@ -37,6 +37,9 @@ In a clean folder run in the terminal
 
 `npm i -g angular/cli@latest`
 
+`npm install -g firebase-tools`
+
+
 Then pull from the repo might take me to authorize the pull request, the commands are,
 In an empty folder that you want the project to be in:
 
