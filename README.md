@@ -15,6 +15,8 @@ Web page served [Web page](http://localhost:8100/)
 
 Currently deployed page using Google Firebase [Tavern](https://tavern-dev.firebaseapp.com/home)
 
+Trello account [Trello](https://trello.com/b/Aygo8osV/tavern)
+
 # For TAVERN developers 
 
 Requirements for editing code:
