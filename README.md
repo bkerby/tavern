@@ -10,8 +10,8 @@ pull the repo `git pull https://github.com/bkerby/tavern.git master`
 
 ### Links
 
-After serving [Ionic Lab](http://localhost:8200/),
-Web page served [Web page](http://localhost:8100/)
+After serving the application with `ionic serve --lab` you can go to the ionic lab http://localhost:8200/,
+and/or the Web page served as http://localhost:8100/
 
 Currently deployed page using Google Firebase [Tavern](https://tavern-dev.firebaseapp.com/home)
 
