@@ -49,4 +49,4 @@ In an empty folder that you want the project to be in:
 
 `git pull https://github.com/bkerby/tavern.git master` (This might be were the pull request is required)
 
-`ionic serve --lab`
+`ionic serve --lab`runs the ionic lab at https://localhost:8200
