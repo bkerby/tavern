@@ -19,15 +19,15 @@ Currently deployed page using Google Firebase [Tavern](https://tavern-dev.fireba
 
 Requirements for editing code:
 
-Install Node.js
+Install Node.js [Node.js Download](https://nodejs.org/en/)
 
-Install VSCode or other IDE (VSCode recomended)
+Install VSCode or other IDE (VSCode recomended) [VSCode Download](https://code.visualstudio.com/download)
 
-Install Git command line tools
+Install Git command line tools [Git Download](https://git-scm.com/downloads)
 
-Make a google firebase account (Use school email)
+Make a google firebase account (Use school email) [Firebase Account](https://firebase.google.com/)
 
-Make a Github account (Optional - Use school email)
+Make a Github account (Optional - Use school email) [Github](https://github.com/)
 
 In a clean folder run in the terminal 
 
