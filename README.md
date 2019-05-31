@@ -10,10 +10,12 @@ pull the repo `git pull https://github.com/bkerby/tavern.git master`
 
 ### Links
 
-After serving [Ionic Lab](http://localhost:8200/),
-Web page served [Web page](http://localhost:8100/)
+After serving the application with `ionic serve --lab` you can go to the ionic lab http://localhost:8200/,
+and/or the Web page served as http://localhost:8100/
 
 Currently deployed page using Google Firebase [Tavern](https://tavern-dev.firebaseapp.com/home)
+
+Trello account [Trello](https://trello.com/b/Aygo8osV/tavern)
 
 # For TAVERN developers 
 
@@ -46,3 +48,5 @@ In an empty folder that you want the project to be in:
 `git init`
 
 `git pull https://github.com/bkerby/tavern.git master` (This might be were the pull request is required)
+
+`ionic serve --lab`runs the ionic lab at https://localhost:8200
