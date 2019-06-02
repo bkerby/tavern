@@ -19,7 +19,7 @@ Trello account [Trello](https://trello.com/b/Aygo8osV/tavern)
 
 # For TAVERN developers 
 
-Requirements for editing code:
+### Requirements for editing code:
 
 Install Node.js [Node.js Download](https://nodejs.org/en/)
 
@@ -52,3 +52,14 @@ In an empty folder that you want the project to be in:
 `git pull https://github.com/bkerby/tavern.git master` (This might be were the pull request is required)
 
 `ionic serve --lab`runs the ionic lab at https://localhost:8200
+
+### Additional Git help
+
+After creating github account and accepting collaboration invite, add this repository url.
+
+`git remote add origin https://github.com/bkerby/tavern.git` to setup new remote
+
+`git remote -v` to verify it works
+
+For workflow using git, refer to https://jameschambers.co/writing/git-team-workflow-cheatsheet/
+
