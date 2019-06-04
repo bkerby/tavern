@@ -11,7 +11,6 @@ import { IonMenu } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
 
-  @ViewChild('#sideMenu') sideMenu: IonMenu;
   username: string = '';
   password: string = '';
 
@@ -19,7 +18,6 @@ export class LoginPage implements OnInit {
     public router: Router) { }
 
   ngOnInit() {
-    this.sideMenu.close();
   }
 
   async login() {
