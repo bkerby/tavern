@@ -1,9 +1,11 @@
 <ion-app>
   <ion-split-pane>
-    <ion-menu>
+    <ion-menu [disabled]="onLogin()">
       <ion-header>
         <ion-toolbar>
-          <ion-title>Menu</ion-title>
+          <ion-title>
+            <ion-icon name="beer"></ion-icon>&nbsp;Tavern
+          </ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-content>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { ActionSheetController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -8,17 +8,33 @@ import { AlertController } from '@ionic/angular';
 })
 export class HomePage {
 
-  constructor(public alertController: AlertController) {}
+  constructor(public actionSheetController: ActionSheetController) {}
 
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      header: 'Alert',
-      subHeader: 'Subtitle',
-      message: 'Hey This is a test',
-      buttons: ['OK', 'Test']
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Tab',
+      buttons: [{
+        text: 'Open Tab',
+        icon: 'beer',
+        handler: () => {
+          console.log('Tab Opened');
+        }
+      }, {
+        text: 'Menu',
+        icon: 'list-box',
+        handler: () => {
+          console.log('Menu opened');
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
     });
-
-    await alert.present();
+    await actionSheet.present();
   }
 
 }
