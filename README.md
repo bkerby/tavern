@@ -13,7 +13,7 @@ pull the repo `git pull https://github.com/bkerby/tavern.git master`
 After serving the application with `ionic serve --lab` you can go to the ionic lab http://localhost:8200/,
 and/or the Web page served as http://localhost:8100/
 
-Currently deployed page using Google Firebase [Tavern](https://tavern-dev.firebaseapp.com/home)
+Currently deployed page using Google Firebase [Tavern](https://taverndev.firebaseapp.com/)
 
 Trello account [Trello](https://trello.com/b/Aygo8osV/tavern)
 
