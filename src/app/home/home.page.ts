@@ -8,16 +8,16 @@ import { ActionSheetController } from '@ionic/angular';
 })
 export class HomePage {
 
-  constructor(public actionSheetController: ActionSheetController) {}
+  constructor(public actionSheetController: ActionSheetController) { }
 
   async presentActionSheet() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Tab',
       buttons: [{
-        text: 'Open Tab',
+        text: 'Open Tab: Test Test',
         icon: 'beer',
         handler: () => {
-          console.log('Tab Opened');
+          console.log('Tab Opened: Test Test');
         }
       }, {
         text: 'Menu',
