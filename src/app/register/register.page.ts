@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 
 import { Router, RouterModule } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -18,15 +19,23 @@ export class RegisterPage implements OnInit {
   constructor(
     public afAuth: AngularFireAuth,
     public router: Router,
-    public appRoutes: RouterModule
+    public appRoutes: RouterModule,
+    public toastController: ToastController
   ) { }
 
   ngOnInit() {
   }
-
+  async presentToast(err: string) {
+    const toast = await this.toastController.create({
+      message: err,
+      duration: 2000
+    });
+    toast.present();
+  }
   async register() {
     const { username, password, cpassword } = this;
     if (password !== cpassword) {
+      this.presentToast('Passwords dont match');
       return console.error('Passwords dont match');
     }
 
@@ -38,8 +47,9 @@ export class RegisterPage implements OnInit {
       // 	uid: res.user.uid
       // });
       this.router.navigate(['/home']);
-    } catch (error) {
-      console.dir(error);
+    } catch (err) {
+      this.presentToast(err.message);
+      console.dir(err);
     }
   }
 

@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { Router } from '@angular/router';
-import { IonMenu } from '@ionic/angular';
+import { IonMenu, ToastController } from '@ionic/angular';
+import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
 
 @Component({
   selector: 'app-login',
@@ -15,11 +16,18 @@ export class LoginPage implements OnInit {
   password: string = '';
 
   constructor(public afAuth: AngularFireAuth,
-    public router: Router) { }
+    public router: Router,
+    private toastController: ToastController) { }
 
   ngOnInit() {
   }
-
+  async presentToast(err: string) {
+    const toast = await this.toastController.create({
+      message: err,
+      duration: 2000
+    });
+    toast.present();
+  }
   async login() {
     const { username, password } = this;
     try {
@@ -34,6 +42,7 @@ export class LoginPage implements OnInit {
       // }
       this.router.navigate(['/home']);
     } catch (err) {
+      this.presentToast(err.message);
       console.dir(err);
     }
   }
