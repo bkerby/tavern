@@ -22,6 +22,13 @@
 			<ion-input type="password" [(ngModel)]="cpassword"></ion-input>
 		</ion-item>
 
+		<ion-item [hidden]="shouldHide">
+			<div class="show-requirements">
+				Password must contain at least 8 characters with a mix of uppercase,
+				lowercase, numbers, and special characters.
+			</div>
+		</ion-item>
+
 	</ion-list>
 
 	<ion-button fill="solid" expand="block" color="dark" (click)="register()">Signup</ion-button>

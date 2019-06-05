@@ -16,6 +16,8 @@ export class RegisterPage implements OnInit {
   password: string = '';
   cpassword: string = '';
 
+  shouldHide = true;
+
   constructor(
     public afAuth: AngularFireAuth,
     public router: Router,
@@ -37,9 +39,11 @@ export class RegisterPage implements OnInit {
     const passwordRequirement = validPassword(password, cpassword);
     if (password !== cpassword) {
       this.presentToast('Passwords dont match');
+      this.shouldHide = false;
       return console.error('Passwords dont match');
     } else if (passwordRequirement != "") {
       this.presentToast(passwordRequirement);
+      this.shouldHide = false;
       return console.error('Password didn\'t meet requirements.');
     }
 
