@@ -34,9 +34,13 @@ export class RegisterPage implements OnInit {
   }
   async register() {
     const { username, password, cpassword } = this;
+    const passwordRequirement = validPassword(password, cpassword);
     if (password !== cpassword) {
       this.presentToast('Passwords dont match');
       return console.error('Passwords dont match');
+    } else if (passwordRequirement != "") {
+      this.presentToast(passwordRequirement);
+      return console.error('Password didn\'t meet requirements.');
     }
 
     try {
@@ -56,6 +60,38 @@ export class RegisterPage implements OnInit {
   login() {
     this.router.navigate(['/login']);
   }
+
+}
+
+function validPassword(password: string, cpassword: string) {
+
+  let error = "";
+
+  const lowercaseRegex = new RegExp("(?=.*[a-z])");// has at least one lower case letter
+  if (!lowercaseRegex.test(password)) {
+    error = "Password needs a lower case letter.";
+  }
+
+  const uppercaseRegex = new RegExp("(?=.*[A-Z])"); //has at least one upper case letter
+  if (!uppercaseRegex.test(password)) {
+    error = "Password needs an upper case letter.";
+  }
+
+  const numRegex = new RegExp("(?=.*\\d)"); // has at least one number
+  if (!numRegex.test(password)) {
+    error = "Password needs at least one number.";
+  }
+
+  const specialcharRegex = new RegExp("[!@#$%^&*(),.?\":{}|<>]");
+  if (!specialcharRegex.test(password)) {
+    error = "Password needs at least one special character.";
+  }
+
+  if (password.length < 8) {
+    error = "Password needs to be at least 8 characters.";
+  }
+
+  return error;
 
 }
 
