@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ActionSheetController } from '@ionic/angular';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-home',
@@ -9,36 +9,28 @@ import { Router } from '@angular/router';
 })
 export class HomePage {
 
-  constructor(public actionSheetController: ActionSheetController,
-              public router: Router) { }
+  public homePages = [
+    {
+      title: 'Bars',
+      url: 'bars',
+      icon: 'beer'
+    },
+    {
+      title: 'Legal',
+      url: 'legal',
+      icon: 'paper'
+    },
+    {
+      title: 'Account',
+      url: 'account',
+      icon: 'person'
+    }
+  ];
 
-  async presentActionSheet() {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Tab',
-      buttons: [{
-        text: 'Open Tab',
-        icon: 'beer',
-        handler: () => {
-          console.log('Tab Opened');
-          this.router.navigate(['/tab']);
-        }
-      }, {
-        text: 'Menu',
-        icon: 'list-box',
-        handler: () => {
-          console.log('Menu opened');
-          this.router.navigate(['/menu']);
-        }
-      }, {
-        text: 'Cancel',
-        icon: 'close',
-        role: 'cancel',
-        handler: () => {
-          console.log('Cancel clicked');
-        }
-      }]
-    });
-    await actionSheet.present();
+  constructor(public router: Router) { }
+
+  goToMenuItem(url: string) {
+    this.router.navigate(['home/' + url]);
   }
 
 }

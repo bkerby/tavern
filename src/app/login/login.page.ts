@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { Router } from '@angular/router';
-import { IonMenu, ToastController } from '@ionic/angular';
-import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
+import { ToastController } from '@ionic/angular';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-login',
@@ -12,12 +12,14 @@ import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
 })
 export class LoginPage implements OnInit {
 
-  username: string = '';
+  email: string = '';
   password: string = '';
 
-  constructor(public afAuth: AngularFireAuth,
+  constructor(
+    public afAuth: AngularFireAuth,
+    public user: UserService,
     public router: Router,
-    private toastController: ToastController) { }
+    public toastController: ToastController) { }
 
   ngOnInit() {
   }
@@ -29,17 +31,17 @@ export class LoginPage implements OnInit {
     toast.present();
   }
   async login() {
-    const { username, password } = this;
+    const { email, password } = this;
     try {
       // kind of a hack.
-      const res = await this.afAuth.auth.signInWithEmailAndPassword(username, password);
-      // if (res.user) {
-      // 	this.user.setUser({
-      // 		username,
-      // 		uid: res.user.uid
-      // 	});
-      // 	this.router.navigate(['/home']);
-      // }
+      const res = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+      if (res.user) {
+        this.user.setUser({
+          email,
+          uid: res.user.uid
+        });
+        this.router.navigate(['/home']);
+      }
       this.router.navigate(['/home']);
     } catch (err) {
       this.presentToast(err.message);

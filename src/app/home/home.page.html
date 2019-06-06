@@ -1,37 +1,26 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      Home
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-    <ion-card class="welcome-card">
-      <ion-card-header>
-        <ion-card-title>Open a Tab</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-          <ion-list>
-              <ion-item>
-                <ion-label (click)="presentActionSheet();">Bar #1</ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-label (click)="presentActionSheet();">Bar #2</ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-label>Bar #3</ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-label>Bar #4</ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-label>Bar #5</ion-label>
-              </ion-item>
-            </ion-list>
-      </ion-card-content>
-    </ion-card>
+  <ion-split-pane>
+    <ion-menu>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>
+            <ion-icon name="beer"></ion-icon>&nbsp;Tavern
+          </ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of homePages">
+            <ion-item (click)="goToMenuItem(p.url);">
+              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+              <ion-label>
+                {{p.title}}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
+  </ion-split-pane>
 </ion-content>
