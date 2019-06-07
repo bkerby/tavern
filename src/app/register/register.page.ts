@@ -5,7 +5,7 @@ import { auth } from 'firebase/app';
 
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
-import { UserService } from '../user.service';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-register',
