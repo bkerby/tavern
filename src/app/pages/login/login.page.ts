@@ -4,6 +4,7 @@ import { auth } from 'firebase/app';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { UserService } from '../../services/user/user.service';
+import { User } from 'src/app/types/user';
 
 @Component({
   selector: 'app-login',
@@ -14,10 +15,11 @@ export class LoginPage implements OnInit {
 
   email: string = '';
   password: string = '';
+  user: User = new User();
 
   constructor(
     public afAuth: AngularFireAuth,
-    public user: UserService,
+    public userService: UserService,
     public router: Router,
     public toastController: ToastController) { }
 
@@ -36,10 +38,7 @@ export class LoginPage implements OnInit {
       // kind of a hack.
       const res = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
       if (res.user) {
-        this.user.setUser({
-          email,
-          uid: res.user.uid
-        });
+        this.userService.setUser(this.user);
         this.router.navigate(['/home']);
       }
       this.router.navigate(['/home']);

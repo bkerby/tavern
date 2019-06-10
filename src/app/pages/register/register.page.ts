@@ -29,6 +29,10 @@ export class RegisterPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    // How to query a database
+    this.afstore.collection('users', ref => ref.where('fName', '==', 'Ben')).valueChanges().subscribe(user => {
+      console.log(user);
+    });
   }
 
   validPassword(password: string, cpassword: string) {
@@ -104,4 +108,3 @@ export class RegisterPage implements OnInit {
     this.router.navigate(['/login']);
   }
 }
-
