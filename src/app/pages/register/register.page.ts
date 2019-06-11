@@ -41,7 +41,7 @@ export class RegisterPage implements OnInit {
 
   // tslint:disable-next-line: use-life-cycle-interface
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    // this.sub.unsubscribe();
   }
 
   validPassword(password: string, cpassword: string) {

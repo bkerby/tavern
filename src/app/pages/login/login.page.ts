@@ -42,10 +42,8 @@ export class LoginPage implements OnInit {
   async login() {
     const { email, password } = this;
     try {
-      // kind of a hack.
       const res = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
       this.sub = this.afstore.doc(`users/${res.user.uid}`).valueChanges().subscribe(user => {
-        console.log(user);
         this.userService.setUser(user as User);
       });
       this.router.navigate(['/home']);

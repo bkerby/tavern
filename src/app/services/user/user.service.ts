@@ -18,7 +18,6 @@ export class UserService {
     private router: Router) { }
 
   setUser(tempuser: User) {
-    console.log('Setting user: ' + JSON.stringify(tempuser));
     this.user = tempuser;
   }
 
