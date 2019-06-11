@@ -2,19 +2,23 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { first } from 'rxjs/operators';
 import { auth } from 'firebase/app';
-
-interface user {
-  email: string;
-  uid: string;
-}
+import { User } from 'src/app/types/user';
+import { AngularFirestore } from '@angular/fire/firestore';
+import * as firebase from 'firebase/app';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class UserService {
-  private user: user;
+  private user: User;
+  sub: any;
 
-  constructor(private afAuth: AngularFireAuth) { }
+  constructor(
+    private afAuth: AngularFireAuth,
+    private afstore: AngularFirestore,
+    private router: Router) { }
 
-  setUser(tempuser: user) {
+  setUser(tempuser: User) {
+    console.log('Setting user: ' + JSON.stringify(tempuser));
     this.user = tempuser;
   }
 
@@ -37,12 +41,13 @@ export class UserService {
   async isAuthenticated() {
     if (this.user) { return true; }
 
+    this.user = new User();
     const tempuser = await this.afAuth.authState.pipe(first()).toPromise();
 
     if (tempuser) {
-      this.setUser({
-        email: tempuser.email,
-        uid: tempuser.uid
+      this.sub = this.afstore.doc(`users/${tempuser.uid}`).valueChanges().subscribe(user => {
+        this.user = user as User;
+        this.setUser(this.user);
       });
 
       return true;
@@ -52,5 +57,19 @@ export class UserService {
 
   getUID(): string {
     return this.user.uid;
+  }
+
+  getUser(): User {
+    return this.user;
+  }
+
+  async logout() {
+    this.setUser(undefined);
+    try {
+      await firebase.auth().signOut();
+      this.router.navigate(['/login']);
+    } catch (e) {
+      console.dir(e);
+    }
   }
 }

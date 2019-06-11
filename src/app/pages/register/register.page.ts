@@ -6,6 +6,7 @@ import { auth } from 'firebase/app';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { UserService } from '../../services/user/user.service';
+import { User } from 'src/app/types/user';
 
 @Component({
   selector: 'app-register',
@@ -19,20 +20,28 @@ export class RegisterPage implements OnInit {
   cpassword: string = '';
 
   shouldHide = true;
+  user: User = new User();
+  sub: any;
 
   constructor(
     public afAuth: AngularFireAuth,
     public afstore: AngularFirestore,
-    public user: UserService,
+    public userService: UserService,
     public router: Router,
     public toastController: ToastController
   ) { }
 
   ngOnInit() {
     // How to query a database
-    this.afstore.collection('users', ref => ref.where('fName', '==', 'Ben')).valueChanges().subscribe(user => {
-      console.log(user);
-    });
+    // this.sub = this.afstore.collection('users', ref => ref.where('fName', '==', 'Ben')).valueChanges().subscribe(user => {
+    //   console.log(user);
+    // });
+    this.user.type = 'c';
+  }
+
+  // tslint:disable-next-line: use-life-cycle-interface
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
   validPassword(password: string, cpassword: string) {
@@ -76,27 +85,26 @@ export class RegisterPage implements OnInit {
 
   async register() {
     const { email, password, cpassword } = this;
-    const passwordRequirement = this.validPassword(password, cpassword);
+    // const passwordRequirement = this.validPassword(password, cpassword);
     if (password !== cpassword) {
       this.presentToast('Passwords dont match');
       this.shouldHide = false;
       return console.error('Passwords dont match');
     }
-    if (passwordRequirement !== '') {
-      this.presentToast(passwordRequirement);
-      this.shouldHide = false;
-      return console.error('Password didn\'t meet requirements.');
-    }
+    // if (passwordRequirement !== '') {
+    //   this.presentToast(passwordRequirement);
+    //   this.shouldHide = false;
+    //   return console.error('Password didn\'t meet requirements.');
+    // }
 
     try {
       const res = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
-      this.afstore.doc(`users/${res.user.uid}`).set({ email: res.user.email });
 
+      this.user.email = res.user.email;
+      this.user.uid = res.user.uid;
 
-      this.user.setUser({
-        email,
-        uid: res.user.uid
-      });
+      this.afstore.doc(`users/${res.user.uid}`).set(Object.assign({}, this.user));
+      this.userService.setUser(this.user);
       this.router.navigate(['/home']);
     } catch (err) {
       this.presentToast(err.message);
@@ -106,5 +114,12 @@ export class RegisterPage implements OnInit {
 
   login() {
     this.router.navigate(['/login']);
+  }
+
+  addZero(num: number): string {
+    if (num <= 9) {
+      return '0' + num;
+    }
+    return '' + num;
   }
 }
