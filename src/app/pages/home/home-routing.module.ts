@@ -6,12 +6,13 @@ const routes: Routes = [{
     path: '',
     component: HomePage,
     children: [
-        { path: '', redirectTo: 'bars', pathMatch: 'full' },
         { path: 'legal', loadChildren: '../legal/legal.module#LegalPageModule' },
         { path: 'account', loadChildren: '../account/account.module#AccountPageModule' },
         { path: 'tab/:id', loadChildren: '../tab/tab.module#TabPageModule' },
         { path: 'menu/:id', loadChildren: '../menu/menu.module#MenuPageModule' },
-        { path: 'bars', loadChildren: '../bars/bars.module#BarsPageModule' }
+        { path: 'bars', loadChildren: '../bars/bars.module#BarsPageModule' },
+        { path: 'bars-admin', loadChildren: '../bars-admin/bars-admin.module#BarAdminPageModule' },
+        { path: 'pos', loadChildren: '../pos/pos.module#PosPageModule' },
     ]
 }];
 

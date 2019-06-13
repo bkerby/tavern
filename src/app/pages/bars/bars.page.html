@@ -11,5 +11,22 @@
 
 <ion-content>
   {{user}}
-  <ion-button (click)="test()">Test</ion-button>
+  <ion-button (click)="presentActionSheet()">Test</ion-button>
+  <ion-list>
+    <ion-item>
+      <ion-label>Input</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-fab-button (click)="changeQuantity(-1)" size="small" slot="end" color="primary">
+        <ion-icon name="remove"></ion-icon>
+      </ion-fab-button>
+      <span slot="end">{{quantity}}</span>
+      <ion-fab-button (click)="changeQuantity(1)" size="small" slot="end" color="secondary">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-item>
+
+  </ion-list>
+
 </ion-content>

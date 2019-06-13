@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { UserService } from '../../services/user/user.service';
@@ -32,6 +31,7 @@ export class LoginPage implements OnInit {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
+
   async presentToast(err: string) {
     const toast = await this.toastController.create({
       message: err,
@@ -39,6 +39,7 @@ export class LoginPage implements OnInit {
     });
     toast.present();
   }
+
   async login() {
     const { email, password } = this;
     try {

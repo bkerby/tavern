@@ -58,6 +58,10 @@ export class UserService {
     return this.user.uid;
   }
 
+  getType(): string {
+    return this.user.type;
+  }
+
   getUser(): User {
     return this.user;
   }

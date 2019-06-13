@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { User } from 'src/app/types/user';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-bars',
@@ -12,11 +13,12 @@ import { User } from 'src/app/types/user';
 })
 export class BarsPage implements OnInit {
   user: string;
+  quantity: number = 0;
   constructor(
     public actionSheetController: ActionSheetController,
     public router: Router,
     public userService: UserService,
-    public afstore: AngularFirestore
+    public afstore: AngularFirestore,
   ) { }
 
   ngOnInit() {
@@ -25,6 +27,9 @@ export class BarsPage implements OnInit {
 
   test() {
     this.user = JSON.stringify(this.userService.getUser());
+  }
+  changeQuantity(num: number) {
+    this.quantity = this.quantity + (num)
   }
 
   async presentActionSheet() {

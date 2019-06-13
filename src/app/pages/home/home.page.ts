@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user/user.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { User } from 'src/app/types/user';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 
 @Component({
@@ -7,27 +11,97 @@ import { Router } from '@angular/router';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
+  userType: string;
+  homePages = [];
+  user: User = new User();
 
-  public homePages = [
-    {
-      title: 'Bars',
-      url: 'bars',
-      icon: 'beer'
-    },
-    {
-      title: 'Legal',
-      url: 'legal',
-      icon: 'paper'
-    },
-    {
-      title: 'Account',
-      url: 'account',
-      icon: 'person'
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private afstore: AngularFirestore,
+    public auth: AngularFireAuth) { }
+
+  ngOnInit() {
+    this.afstore.doc(`users/${this.auth.auth.currentUser.uid}`).valueChanges().subscribe(user => {
+      console.log(user);
+      const tempUser: User = user as User;
+      this.userService.setUser(tempUser);
+      this.homePages = this.setHomePages(tempUser.type);
+      this.onLoadRoute(tempUser.type);
+    });
+  }
+  onLoadRoute(type: string) {
+    if (type === 'c') {
+      this.router.navigate(['/home/bars']);
+    } else {
+      this.router.navigate(['/home/pos']);
     }
-  ];
+  }
 
-  constructor(public router: Router) { }
+  setHomePages(userType: string) {
+    switch (userType) {
+      case 'b':
+        return [
+          {
+            title: 'POS',
+            url: 'pos',
+            icon: 'desktop'
+          },
+          {
+            title: 'Account',
+            url: `account`,
+            icon: 'person'
+          },
+          {
+            title: 'Legal',
+            url: 'legal',
+            icon: 'paper'
+          }
+        ];
+      case 'a':
+        return [
+          {
+            title: 'POS',
+            url: 'pos',
+            icon: 'desktop'
+          },
+          {
+            title: 'Bar Admin',
+            url: 'bar-admin',
+            icon: 'clipboard'
+          },
+          {
+            title: 'Account',
+            url: `account`,
+            icon: 'person'
+          },
+          {
+            title: 'Legal',
+            url: 'legal',
+            icon: 'paper'
+          },
+        ];
+      default:
+        return [
+          {
+            title: 'Bars',
+            url: 'bars',
+            icon: 'beer'
+          },
+          {
+            title: 'Account',
+            url: `account`,
+            icon: 'person'
+          },
+          {
+            title: 'Legal',
+            url: 'legal',
+            icon: 'paper'
+          }
+        ];
+    }
+  }
 
   goToMenuItem(url: string) {
     this.router.navigate(['home/' + url]);

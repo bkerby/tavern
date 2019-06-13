@@ -28,14 +28,27 @@
 			<ion-input type="text" [(ngModel)]="user.lName"></ion-input>
 		</ion-item>
 
-		<ion-item>
-			<ion-label>Type of User</ion-label>
-			<ion-select [(ngModel)]="user.type" okText="Okay" cancelText="Dismiss">
-				<ion-select-option value="c">Customer</ion-select-option>
-				<ion-select-option value="b">Bartender</ion-select-option>
-				<ion-select-option value="a">Bar Owner</ion-select-option>
-			</ion-select>
-		</ion-item>
+		<ion-list>
+			<ion-radio-group [(ngModel)]="user.type">
+				<ion-list-header>
+					User Type
+				</ion-list-header>
+				<ion-item>
+					<ion-label>Customer</ion-label>
+					<ion-radio value="c"></ion-radio>
+				</ion-item>
+
+				<ion-item>
+					<ion-label>Bar Admin</ion-label>
+					<ion-radio value="b"></ion-radio>
+				</ion-item>
+
+				<ion-item>
+					<ion-label>Bartender</ion-label>
+					<ion-radio value="a"></ion-radio>
+				</ion-item>
+			</ion-radio-group>
+		</ion-list>
 
 		<ion-item [hidden]="shouldHide">
 			<div class="show-requirements">

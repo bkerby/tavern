@@ -6,7 +6,8 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },
-  { path: 'home', loadChildren: './pages/home/home.module#HomePageModule', canActivate: [AuthService] }
+  { path: 'home', loadChildren: './pages/home/home.module#HomePageModule', canActivate: [AuthService] },
+  { path: 'register-bus-bar', loadChildren: './pages/register-bus-bar/register-bus-bar.module#RegisterBusBarPageModule' },
 ];
 
 @NgModule({
