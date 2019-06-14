@@ -28,28 +28,6 @@
 			<ion-input type="text" [(ngModel)]="user.lName"></ion-input>
 		</ion-item>
 
-		<ion-list>
-			<ion-radio-group [(ngModel)]="user.type">
-				<ion-list-header>
-					User Type
-				</ion-list-header>
-				<ion-item>
-					<ion-label>Customer</ion-label>
-					<ion-radio value="c"></ion-radio>
-				</ion-item>
-
-				<ion-item>
-					<ion-label>Bar Admin</ion-label>
-					<ion-radio value="b"></ion-radio>
-				</ion-item>
-
-				<ion-item>
-					<ion-label>Bartender</ion-label>
-					<ion-radio value="a"></ion-radio>
-				</ion-item>
-			</ion-radio-group>
-		</ion-list>
-
 		<ion-item [hidden]="shouldHide">
 			<div class="show-requirements">
 				Password must contain at least 8 characters with a mix of uppercase,
@@ -57,11 +35,14 @@
 			</div>
 		</ion-item>
 
-
-
 	</ion-list>
 
-	<ion-button fill="solid" expand="block" color="dark" (click)="register()">Signup</ion-button>
-	<ion-button expand="full" (click)="login()">Login</ion-button>
+	<ion-button fill="solid" expand="block" color="primary" (click)="register()">Signup</ion-button>
+	<br>
+	<div class="middle">
+		<a (click)="loginNav()">Login</a>
+		<hr>
+		<a (click)="registerBusBarNav()">Register Bar/Bartender</a>
+	</div>
 
 </ion-content>

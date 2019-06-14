@@ -26,6 +26,9 @@ export class LoginPage implements OnInit {
     public afstore: AngularFirestore) { }
 
   ngOnInit() {
+    if (this.afAuth.auth.currentUser) {
+      this.router.navigate(['/home']);
+    }
   }
   // tslint:disable-next-line: use-life-cycle-interface
   ngOnDestroy() {
@@ -54,8 +57,12 @@ export class LoginPage implements OnInit {
     }
   }
 
-  register() {
+  registerNav() {
     this.router.navigate(['/register']);
+  }
+
+  registerBusBarNav() {
+    this.router.navigate(['/register-bus-bar']);
   }
 
 }

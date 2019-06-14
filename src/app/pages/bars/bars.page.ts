@@ -3,8 +3,7 @@ import { ActionSheetController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { User } from 'src/app/types/user';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { Bar } from 'src/app/types/bar';
 
 @Component({
   selector: 'app-bars',
@@ -12,8 +11,11 @@ import { AngularFireAuth } from '@angular/fire/auth';
   styleUrls: ['./bars.page.scss'],
 })
 export class BarsPage implements OnInit {
+
   user: string;
   quantity: number = 0;
+  bars: any[] = [];
+
   constructor(
     public actionSheetController: ActionSheetController,
     public router: Router,
@@ -23,41 +25,37 @@ export class BarsPage implements OnInit {
 
   ngOnInit() {
     this.user = JSON.stringify(this.userService.getUser());
+    this.bars.push({ bar: new Bar(), tabOpen: false });
+    this.bars[0].bar.admins = ['fhjsklhfjkaslhfjklashf'];
+    this.bars[0].bar.name = 'Test Bar';
+    this.bars[0].bar.bid = 'fjljkalsfjaskl;fjaskl;fja';
+    this.bars[0].bar.menus = ['fjsakljfksalfjsakl;fjaskl;'];
+    this.bars[0].bar.bartenders = ['jfklsaklfajskfl;asjfklas'];
+    this.bars[0].bar.address = 'Omaha, Ne';
+    this.bars[0].bar.description = 'This is a description...';
+    this.afstore.collection('bars').valueChanges().subscribe(bars => {
+      bars.forEach(bar => {
+        this.bars.push({ bar: bar as Bar, tabOpen: false });
+      });
+    });
   }
 
   test() {
     this.user = JSON.stringify(this.userService.getUser());
   }
+
   changeQuantity(num: number) {
-    this.quantity = this.quantity + (num)
+    this.quantity = this.quantity + (num);
   }
 
-  async presentActionSheet() {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Tab',
-      buttons: [{
-        text: 'Open Tab',
-        icon: 'beer',
-        handler: () => {
-          console.log('Tab Opened');
-          this.router.navigate(['/home/tab']);
-        }
-      }, {
-        text: 'Menu',
-        icon: 'list-box',
-        handler: () => {
-          console.log('Menu opened');
-          this.router.navigate(['/home/menu']);
-        }
-      }, {
-        text: 'Cancel',
-        icon: 'close',
-        role: 'cancel',
-        handler: () => {
-          console.log('Cancel clicked');
-        }
-      }]
-    });
-    await actionSheet.present();
+  toggleTabStatus(element: HTMLButtonElement) {
+    const button = element;
+    this.bars[0].tabOpen = !this.bars[0].tabOpen;
+    button.textContent = this.bars[0].tabOpen ? 'View Tab' : 'Open Tab';
   }
+
+  goToMenu(mid: string) {
+    this.router.navigate([`/home/menu/${mid}`]);
+  }
+
 }

@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Add/Remove
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar type="text" debounce="500" (ionInput)="filterItems($event)"></ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let item of items">
+      {{ item.item }}
+      <ion-fab-button (click)="add()" *ngIf="item.isChecked" size="small" color="success" slot="end">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="remove()" *ngIf="!item.isChecked" size="small" color="danger" slot="end">
+        <ion-icon name="remove"></ion-icon>
+      </ion-fab-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button slot="end" (click)="closeModal()">Close</ion-button>
+  </ion-toolbar>
+</ion-footer>

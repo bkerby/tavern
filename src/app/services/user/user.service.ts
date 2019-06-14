@@ -4,7 +4,6 @@ import { first } from 'rxjs/operators';
 import { auth } from 'firebase/app';
 import { User } from 'src/app/types/user';
 import { AngularFirestore } from '@angular/fire/firestore';
-import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -69,7 +68,7 @@ export class UserService {
   async logout() {
     this.setUser(undefined);
     try {
-      await firebase.auth().signOut();
+      await this.afAuth.auth.signOut();
       this.router.navigate(['/login']);
     } catch (e) {
       console.dir(e);

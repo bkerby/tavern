@@ -5,7 +5,7 @@
 
     <ion-item>
       <ion-label position="floating">Email</ion-label>
-      <ion-input type="text" [(ngModel)]="email"></ion-input>
+      <ion-input type="email" [(ngModel)]="email"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -15,6 +15,11 @@
 
   </ion-list>
 
-  <ion-button fill="solid" expand="block" color="dark" (click)="login()">Login</ion-button>
-  <a (click)="register()">Register for Tavern</a>
+  <ion-button fill="solid" expand="block" color="primary" (click)="login()">Login</ion-button>
+  <br>
+  <div class="middle">
+    <a (click)="registerNav()">Create Account</a>
+    <hr>
+    <a (click)="registerBusBarNav()">Register Bar/Bartender</a>
+  </div>
 </ion-content>

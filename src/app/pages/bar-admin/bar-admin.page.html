@@ -10,5 +10,31 @@
 </ion-header>
 
 <ion-content>
+  <ion-list>
 
+    <ion-item>
+      <ion-label position="floating">Name</ion-label>
+      <ion-input type="text" [(ngModel)]="test"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-textarea type="text" [(ngModel)]="test"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Address</ion-label>
+      <ion-input type="text" [(ngModel)]="test"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-button (click)="openModal('Admin')">Add/Remove Admin(s)</ion-button>
+    </ion-item>
+
+    <ion-item>
+      <ion-button (click)="openModal('Bartender')">Add/Remove Bartender(s)</ion-button>
+    </ion-item>
+
+
+  </ion-list>
 </ion-content>

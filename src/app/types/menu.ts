@@ -1,6 +1,6 @@
 export class Menu {
     menus: [{
-        mName: string;
+        name: string;
         items: string[];
     }];
     bar: string;

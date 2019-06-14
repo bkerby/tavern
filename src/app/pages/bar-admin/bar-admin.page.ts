@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { AddRemoveModalComponent } from 'src/app/components/add-remove-modal/add-remove-modal.component';
 
 @Component({
   selector: 'app-bar-admin',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BarAdminPage implements OnInit {
 
-  constructor() { }
+  test = '';
+
+  constructor(private modalController: ModalController) { }
 
   ngOnInit() {
+  }
+
+  async openModal(typeStr: string) {
+    const modal = await this.modalController.create({
+      component: AddRemoveModalComponent,
+      componentProps: { type: typeStr, }
+    });
+    return await modal.present();
   }
 
 }

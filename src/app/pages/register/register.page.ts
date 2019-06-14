@@ -112,8 +112,11 @@ export class RegisterPage implements OnInit {
     }
   }
 
-  login() {
+  loginNav() {
     this.router.navigate(['/login']);
+  }
+  registerBusBarNav() {
+    this.router.navigate(['/register-bus-bar']);
   }
 
   addZero(num: number): string {

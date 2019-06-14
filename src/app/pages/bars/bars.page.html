@@ -10,9 +10,20 @@
 </ion-header>
 
 <ion-content>
-  {{user}}
-  <ion-button (click)="presentActionSheet()">Test</ion-button>
-  <ion-list>
+  <ion-card *ngFor="let bar of bars;">
+    <ion-card-content>
+      <h1>{{bar.bar.name}}</h1>
+      {{bar.bar.address}}
+      <br>
+      {{bar.bar.description}}
+      <div>
+        <ion-button size="small" (click)="toggleTabStatus($event.target)">Open Tab</ion-button>
+        <ion-button size="small" (click)="goToMenu('fhjdkslhfjksdlfh')">Menu</ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- <ion-list>
     <ion-item>
       <ion-label>Input</ion-label>
       <ion-input></ion-input>
@@ -27,6 +38,6 @@
       </ion-fab-button>
     </ion-item>
 
-  </ion-list>
+  </ion-list> -->
 
 </ion-content>

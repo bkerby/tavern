@@ -1,8 +1,9 @@
 export class Bar {
     bid: string;
-    bName: string;
+    name: string;
     admins: string[];
-    employees: string[];
+    bartenders: string[];
     menus: string[];
-    location: string;
+    address: string;
+    description: string;
 }
