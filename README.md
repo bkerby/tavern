@@ -37,7 +37,7 @@ In a clean folder run in the terminal
 
 `npm i -g cordova@latest`
 
-`npm i -g angular/cli@latest` or if failed, try `npm i -g @angular/cli`
+`npm i -g @angular/cli@latest`
 
 `npm install -g firebase-tools`
 
