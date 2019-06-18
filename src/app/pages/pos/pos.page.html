@@ -10,5 +10,46 @@
 </ion-header>
 
 <ion-content>
+  Bartender: {{bartenderSelected}} <ion-button size="small" (click)="openModal()">Change Bartender
+  </ion-button>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-radio-group [(ngModel)]="tabSelected">
+            <ion-list-header>
+              Tabs
+            </ion-list-header>
 
+            <ion-item>
+              <ion-label>Cord</ion-label>
+              <ion-radio value="cord"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Studebaker</ion-label>
+              <ion-radio value="studebaker"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </ion-list>
+      </ion-col>
+      <ion-col>
+        <ion-list-header>
+          Add Items
+        </ion-list-header>
+        <ion-list>
+          <ion-item>
+            <ion-fab-button (click)="changeQuantity(-1)" size="small" slot="end" color="primary">
+              <ion-icon name="remove"></ion-icon>
+            </ion-fab-button>
+            <span slot="end">{{quantity}}</span>
+            <ion-fab-button (click)="changeQuantity(1)" size="small" slot="end" color="secondary">
+              <ion-icon name="add"></ion-icon>
+            </ion-fab-button>
+          </ion-item>
+        </ion-list>
+        <ion-button expand="block">Add to Tab</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

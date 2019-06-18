@@ -44,9 +44,7 @@ export class BarsPage implements OnInit {
     this.user = JSON.stringify(this.userService.getUser());
   }
 
-  changeQuantity(num: number) {
-    this.quantity = this.quantity + (num);
-  }
+
 
   toggleTabStatus(element: HTMLButtonElement) {
     const button = element;
