@@ -13,8 +13,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class LoginPage implements OnInit {
 
-  email: string = '';
-  password: string = '';
+  email = '';
+  password = '';
   user: User = new User();
   sub: any;
 

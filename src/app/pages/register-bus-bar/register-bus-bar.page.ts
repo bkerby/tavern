@@ -15,9 +15,9 @@ import { User } from 'src/app/types/user';
 })
 export class RegisterBusBarPage implements OnInit {
 
-  email: string = '';
-  password: string = '';
-  cpassword: string = '';
+  email = '';
+  password = '';
+  cpassword = '';
 
   shouldHide = true;
   user: User = new User();

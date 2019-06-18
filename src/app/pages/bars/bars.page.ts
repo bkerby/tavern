@@ -13,7 +13,7 @@ import { Bar } from 'src/app/types/bar';
 export class BarsPage implements OnInit {
 
   user: string;
-  quantity: number = 0;
+  quantity = 0;
   bars: any[] = [];
 
   constructor(
@@ -25,26 +25,12 @@ export class BarsPage implements OnInit {
 
   ngOnInit() {
     this.user = JSON.stringify(this.userService.getUser());
-    this.bars.push({ bar: new Bar(), tabOpen: false });
-    this.bars[0].bar.admins = ['fhjsklhfjkaslhfjklashf'];
-    this.bars[0].bar.name = 'Test Bar';
-    this.bars[0].bar.bid = 'fjljkalsfjaskl;fjaskl;fja';
-    this.bars[0].bar.menus = ['fjsakljfksalfjsakl;fjaskl;'];
-    this.bars[0].bar.bartenders = ['jfklsaklfajskfl;asjfklas'];
-    this.bars[0].bar.address = 'Omaha, Ne';
-    this.bars[0].bar.description = 'This is a description...';
     this.afstore.collection('bars').valueChanges().subscribe(bars => {
       bars.forEach(bar => {
         this.bars.push({ bar: bar as Bar, tabOpen: false });
       });
     });
   }
-
-  test() {
-    this.user = JSON.stringify(this.userService.getUser());
-  }
-
-
 
   toggleTabStatus(element: HTMLButtonElement) {
     const button = element;

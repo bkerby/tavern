@@ -9,7 +9,7 @@ import { ModalController } from '@ionic/angular';
 export class AddRemoveModalComponent implements OnInit {
 
   items: any[] = [];
-  @Input() type: string = '';
+  @Input() type = '';
 
   constructor(private modalContoller: ModalController) { }
 
