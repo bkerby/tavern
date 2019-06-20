@@ -9,19 +9,14 @@
 <ion-content>
 
   <ion-list>
-    <ion-radio-group>
+    <ion-radio-group [(ngModel)]="selectedBartender">
 
-      <ion-item>
-        <ion-label>Cord</ion-label>
-        <ion-radio value="cord"></ion-radio>
+      <ion-item *ngFor="let bartender of barService.bartenderList">
+        <ion-label>{{bartender.fName}} {{bartender.lName}}</ion-label>
+        <ion-radio value="bartender.uid"></ion-radio>
       </ion-item>
 
-      <ion-item>
-        <ion-label>Studebaker</ion-label>
-        <ion-radio value="studebaker"></ion-radio>
-      </ion-item>
     </ion-radio-group>
-
   </ion-list>
 
 </ion-content>

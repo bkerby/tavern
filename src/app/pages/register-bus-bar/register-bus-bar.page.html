@@ -35,14 +35,35 @@
         </ion-list-header>
         <ion-item>
           <ion-label>Bar Admin</ion-label>
-          <ion-radio value="b"></ion-radio>
+          <ion-radio value="a"></ion-radio>
         </ion-item>
 
         <ion-item>
           <ion-label>Bartender</ion-label>
-          <ion-radio value="a"></ion-radio>
+          <ion-radio value="b"></ion-radio>
         </ion-item>
       </ion-radio-group>
+
+      <ion-card *ngIf="user.type === 'a'">
+        <ion-list>
+
+          <ion-item>
+            <ion-label position="floating">Bar Name</ion-label>
+            <ion-input type="text" [(ngModel)]="bar.name"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Bar Description</ion-label>
+            <ion-textarea type="text" [(ngModel)]="bar.description"></ion-textarea>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Bar Address</ion-label>
+            <ion-input type="text" [(ngModel)]="bar.address"></ion-input>
+          </ion-item>
+
+        </ion-list>
+      </ion-card>
     </ion-list>
 
     <ion-item [hidden]="shouldHide">

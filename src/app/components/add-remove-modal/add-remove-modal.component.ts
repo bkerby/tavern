@@ -4,6 +4,7 @@ import { User } from 'src/app/types/user';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { Bar } from 'src/app/types/bar';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-add-remove-modal',
@@ -12,19 +13,22 @@ import { Bar } from 'src/app/types/bar';
 })
 export class AddRemoveModalComponent implements OnInit, OnDestroy {
 
-  bid = 'UGR9GcxzRix5P7qA3Yux';
   bartenders: string[] = [];
   items: any[] = [];
   @Input() type = '';
   sub: Subscription;
+  allBartenders: User[];
 
   constructor(
     private modalContoller: ModalController,
     private afstore: AngularFirestore,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
-    this.initializeBartenders();
+    this.userService.initUser();
+    this.setAllBartenders();
+    this.setBarBartenders();
   }
 
   ngOnDestroy() {
@@ -48,22 +52,24 @@ export class AddRemoveModalComponent implements OnInit, OnDestroy {
   }
 
   updateBartenders() {
-    this.afstore.doc(`bars/${this.bid}`).update({ bartenders: this.bartenders });
+    this.afstore.doc(`bars/${this.userService.getUID()}`).update({ bartenders: this.bartenders });
   }
 
-  // initialize the items with false
-
-  initializeBartenders() {
+  setAllBartenders() {
     this.sub = this.afstore.collection('users', ref => ref.where('type', '==', 'b')).valueChanges().subscribe(users => {
-      this.afstore.doc(`bars/${this.bid}`).valueChanges().subscribe(bar => {
-        const b = bar as Bar;
-        this.bartenders = b.bartenders;
-        users.forEach(user => {
-          const bartender = user as User;
-          this.items.push({ user: bartender, isBartender: this.bartenders.includes(bartender.uid) });
-        });
-      });
+      this.allBartenders = users as User[];
     });
   }
 
+  setBarBartenders() {
+    this.afstore.doc(`bars/${this.userService.getUID()}`).valueChanges().subscribe(bar => {
+      if ((bar as Bar).bartenders !== undefined) {
+        this.bartenders = (bar as Bar).bartenders;
+      }
+    });
+  }
+
+  getBartenderStatus(uid: string) {
+    return this.bartenders.includes(uid);
+  }
 }

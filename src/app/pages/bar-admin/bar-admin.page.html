@@ -14,17 +14,24 @@
 
     <ion-item>
       <ion-label position="floating">Name</ion-label>
-      <ion-input type="text" [(ngModel)]="test"></ion-input>
+      <ion-input type="text" [(ngModel)]="barService.bar.name"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Description</ion-label>
-      <ion-textarea type="text" [(ngModel)]="test"></ion-textarea>
+      <ion-textarea type="text" [(ngModel)]="barService.bar.description"></ion-textarea>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Address</ion-label>
-      <ion-input type="text" [(ngModel)]="test"></ion-input>
+      <ion-input type="text" [(ngModel)]="barService.bar.address"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      Bartenders:&nbsp;<ion-chip *ngFor="let bartender of barService.bartenderList" color="secondary">
+        <ion-label>{{ bartender.fName }} {{ bartender.lName }}</ion-label>
+        <ion-icon name="user"></ion-icon>
+      </ion-chip>
     </ion-item>
 
     <ion-item>
@@ -32,5 +39,9 @@
     </ion-item>
 
   </ion-list>
-  <ion-button>Save/Create</ion-button>
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button slot="end" (click)="barService.updateBar()">Save/Create</ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { UserService } from '../../services/user/user.service';
 import { User } from 'src/app/types/user';
+import { Bar } from 'src/app/types/bar';
 
 @Component({
   selector: 'app-register-bus-bar',
@@ -18,10 +19,12 @@ export class RegisterBusBarPage implements OnInit, OnDestroy {
   email = '';
   password = '';
   cpassword = '';
+  test = '';
 
   shouldHide = true;
   user: User = new User();
   sub: any;
+  bar: Bar = new Bar();
 
   constructor(
     public afAuth: AngularFireAuth,
@@ -104,6 +107,10 @@ export class RegisterBusBarPage implements OnInit, OnDestroy {
 
       this.afstore.doc(`users/${res.user.uid}`).set(Object.assign({}, this.user));
       this.userService.setUser(this.user);
+      if (this.user.type === 'a') {
+        this.bar.admin = res.user.uid;
+        this.afstore.doc(`bars/${res.user.uid}`).set(Object.assign({}, this.bar));
+      }
       this.router.navigate(['/home']);
     } catch (err) {
       this.presentToast(err.message);

@@ -65,6 +65,12 @@ export class UserService {
     return this.user;
   }
 
+  initUser() {
+    this.afstore.doc(`users/${this.afAuth.auth.currentUser.uid}`).valueChanges().subscribe(user => {
+      this.setUser(user as User);
+    });
+  }
+
   async logout() {
     this.setUser(undefined);
     try {

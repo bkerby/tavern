@@ -1,27 +1,23 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { BarService } from 'src/app/services/bar/bar.service';
 
 @Component({
   selector: 'app-select-model',
   templateUrl: './select-model.component.html',
   styleUrls: ['./select-model.component.scss'],
 })
-export class SelectModelComponent implements OnInit, OnDestroy {
-  sub: any;
+export class SelectModelComponent implements OnInit {
+
+  selectedBartender: string = '';
 
   constructor(
     private modalContoller: ModalController,
-    private afstore: AngularFirestore) { }
+    private barService: BarService) { }
 
   ngOnInit() {
-    this.sub = this.afstore.collection('users', ref => ref.where('type', '==', 'b')).valueChanges().subscribe(user => {
-      console.log(user);
-    });
-  }
-
-  ngOnDestroy() {
-    this.sub.unsubscribe();
+    this.barService.initBar();
   }
 
   closeModal() {

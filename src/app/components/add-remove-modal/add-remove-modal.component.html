@@ -8,12 +8,14 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let item of items">
-      {{ item.user.fName }} {{ item.user.lName }} {{ item.user.email }}
-      <ion-fab-button (click)="add(item.user.uid)" *ngIf="!item.isBartender" size="small" color="success" slot="end">
+    <ion-item *ngFor="let bartender of allBartenders">
+      {{ bartender.fName }} {{ bartender.lName }} {{ bartender.email }}
+      <ion-fab-button (click)="add(bartender.uid)" *ngIf="!getBartenderStatus(bartender.uid)" size="small"
+        color="success" slot="end">
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button (click)="remove(item.user.uid)" *ngIf="item.isBartender" size="small" color="danger" slot="end">
+      <ion-fab-button (click)="remove(bartender.uid)" *ngIf="getBartenderStatus(bartender.uid)" size="small"
+        color="danger" slot="end">
         <ion-icon name="remove"></ion-icon>
       </ion-fab-button>
     </ion-item>
