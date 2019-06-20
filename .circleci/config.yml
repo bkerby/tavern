@@ -1,33 +1,28 @@
-version: 2.1
-# Use a package of configuration called an orb, see https://circleci.com/docs/2.0/orb-intro/
-orbs:
-  # Declare a dependency on the welcome-orb
-  welcome: circleci/welcome-orb@0.3.1
-
-# Orchestrate or schedule a set of jobs, see https://circleci.com/docs/2.0/workflows/
-workflows:
-  # Name the workflow "Welcome"
-  Welcome:
-    # Run the welcome/run job in its own container
-    jobs:
-      - welcome/run 
-
-deploy-job:
-  working_directory: /Users/benjaminkerby/GitHub/tavern
-  steps:
-    - run:
-        name: Deploy Master to Firebase
-        command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
-
-    workflows:
-      version: 2
-
-      -deploy:
-        jobs:
-          - build-job
-          - deploy-job:
-              requires:
-                - build-job
-              filters:
-                branches:
-                  only: master
+# CircleCI Firebase Deployment Config
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/tavern
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            # Find a cache corresponding to this specific package-lock.json
+            - v1-npm-deps-{{ checksum "package-lock.json" }}
+            # Fallback cache to be used
+            - v1-npm-deps-
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - save_cache:
+          key: v1-npm-deps-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Tavern Build
+          command: npm run build
+      - run:
+          name: Firebase Deploy
+          command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN"
