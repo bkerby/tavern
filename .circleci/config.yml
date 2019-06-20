@@ -3,7 +3,6 @@ version: 2.1
 orbs:
   # Declare a dependency on the welcome-orb
   welcome: circleci/welcome-orb@0.3.1
-  firebase-deploy: cloudliner/firebase-deploy@0.0.2
 
 # Orchestrate or schedule a set of jobs, see https://circleci.com/docs/2.0/workflows/
 workflows:
@@ -12,6 +11,23 @@ workflows:
     # Run the welcome/run job in its own container
     jobs:
       - welcome/run 
-  Deploy: 
-    jobs:
-      - firebase-deploy/run
+
+deploy-job:
+  working_directory: /Users/benjaminkerby/GitHub/tavern
+  steps:
+    - run:
+        name: Deploy Master to Firebase
+        command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
+
+    workflows:
+      version: 2
+
+      -deploy:
+        jobs:
+          - build-job
+          - deploy-job:
+              requires:
+                - build-job
+              filters:
+                branches:
+                  only: master
