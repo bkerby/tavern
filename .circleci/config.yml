@@ -11,4 +11,7 @@ workflows:
   Welcome:
     # Run the welcome/run job in its own container
     jobs:
-      - welcome/run  
+      - welcome/run 
+  Deploy: 
+    jobs:
+      - firebase-deploy/run
