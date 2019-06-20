@@ -9,8 +9,10 @@ version: 2.1
 # # Orchestrate or schedule a set of jobs, see https://circleci.com/docs/2.0/workflows/
 workflows:
   # Name the workflow "Welcome"
-  deployment:
-    jobs:
-      - ng build
-      - firebase deploy --token=1/ZM8SV3sNVgM-nKsU5EmdFJO9uj3WFN5ZE-WmzzTgxVM --non-interactive
+  jobs:
+    deployment:
+      branches: master
+      steps:
+        run: ng build
+        run: firebase deploy --token=1/ZM8SV3sNVgM-nKsU5EmdFJO9uj3WFN5ZE-WmzzTgxVM --non-interactive
 # $FIREBASE_TOKEN firebase login:ci to get token
