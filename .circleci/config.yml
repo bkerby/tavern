@@ -1,16 +1,3 @@
 version: 2.1
-description: Orb for firebase deploy.
-commands:
-  deploy:
-    description: Deploy to firebase
-    parameters:
-      token:
-        type: string
-        description: Firebase Deploy Token
-    steps:
-      - run:
-          name: Install Firebase Tools
-          command: npm install --prefix=./firebase-deploy firebase-tools
-      - run:
-          name: Deploy to Firebase
-          command: ./firebase-deploy/node_modules/.bin/firebase deploy --token=1/ZM8SV3sNVgM-nKsU5EmdFJO9uj3WFN5ZE-WmzzTgxVM
+orbs:
+  firebase-deploy: cloudliner/firebase-deploy@0.0.2
