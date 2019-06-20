@@ -7,14 +7,13 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar type="text" debounce="500" (ionInput)="filterItems($event)"></ion-searchbar>
   <ion-list>
     <ion-item *ngFor="let item of items">
-      {{ item.item }}
-      <ion-fab-button (click)="add()" *ngIf="item.isChecked" size="small" color="success" slot="end">
+      {{ item.user.fName }} {{ item.user.lName }} {{ item.user.email }}
+      <ion-fab-button (click)="add(item.user.uid)" *ngIf="!item.isBartender" size="small" color="success" slot="end">
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button (click)="remove()" *ngIf="!item.isChecked" size="small" color="danger" slot="end">
+      <ion-fab-button (click)="remove(item.user.uid)" *ngIf="item.isBartender" size="small" color="danger" slot="end">
         <ion-icon name="remove"></ion-icon>
       </ion-fab-button>
     </ion-item>

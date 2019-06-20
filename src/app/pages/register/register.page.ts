@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { auth } from 'firebase/app';
@@ -13,7 +13,7 @@ import { User } from 'src/app/types/user';
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
 })
-export class RegisterPage implements OnInit {
+export class RegisterPage implements OnInit, OnDestroy {
 
   email = '';
   password = '';
@@ -39,7 +39,6 @@ export class RegisterPage implements OnInit {
     this.user.type = 'c';
   }
 
-  // tslint:disable-next-line: use-life-cycle-interface
   ngOnDestroy() {
     // this.sub.unsubscribe();
   }

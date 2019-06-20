@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
@@ -11,7 +11,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, OnDestroy {
 
   email = '';
   password = '';
@@ -30,7 +30,7 @@ export class LoginPage implements OnInit {
       this.router.navigate(['/home']);
     }
   }
-  // tslint:disable-next-line: use-life-cycle-interface
+
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
