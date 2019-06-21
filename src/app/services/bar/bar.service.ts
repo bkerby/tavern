@@ -37,7 +37,7 @@ export class BarService implements OnDestroy {
   }
 
   updateBar() {
-    this.afstore.doc(`bars/${this.bar.admin}`).update(Object.assign({}, this.bar));
+    this.afstore.doc(`bars/${this.bar.bid}`).update(Object.assign({}, this.bar));
   }
 
   setBartenders(bartenders: string[]) {
