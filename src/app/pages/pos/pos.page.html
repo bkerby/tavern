@@ -10,11 +10,6 @@
 </ion-header>
 
 <ion-content>
-  <ion-select placeholder="Select Bartender" [(ngModel)]="bartenderSelected" okText="Okay" cancelText="Dismiss">
-    <ion-select-option *ngFor="let bartender of barService.bartenderList" value="{{bartender.uid}}">
-      {{bartender.fName}} {{bartender.lName}}
-    </ion-select-option>
-  </ion-select>
   <ion-grid>
     <ion-row>
       <ion-col>
@@ -51,8 +46,20 @@
             </ion-fab-button>
           </ion-item>
         </ion-list>
-        <ion-button expand="block">Add to Tab</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-item slot="end">
+      <ion-label>Select a Bartender</ion-label>
+      <ion-select placeholder="Select Bartender" [(ngModel)]="bartenderSelected" okText="Okay" cancelText="Dismiss">
+        <ion-select-option *ngFor="let bartender of barService.bartenderList" value="{{bartender.uid}}">
+          {{bartender.fName}} {{bartender.lName}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-button slot="end">Add to Tab</ion-button>
+  </ion-toolbar>
+</ion-footer>

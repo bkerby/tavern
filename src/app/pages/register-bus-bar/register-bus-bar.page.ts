@@ -108,7 +108,7 @@ export class RegisterBusBarPage implements OnInit, OnDestroy {
       this.afstore.doc(`users/${res.user.uid}`).set(Object.assign({}, this.user));
       this.userService.setUser(this.user);
       if (this.user.type === 'a') {
-        this.bar.admin = res.user.uid;
+        this.bar.bid = res.user.uid;
         this.afstore.doc(`bars/${res.user.uid}`).set(Object.assign({}, this.bar));
       }
       this.router.navigate(['/home']);

@@ -3,4 +3,5 @@ export class Tab {
     items: string[];
     user: string;
     bar: string;
+    open: boolean;
 }

@@ -5,35 +5,57 @@ import { auth } from 'firebase/app';
 import { User } from 'src/app/types/user';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Injectable()
 export class UserService {
-  private user: User;
+  user: User;
   sub: any;
 
   constructor(
     private afAuth: AngularFireAuth,
     private afstore: AngularFirestore,
-    private router: Router) { }
+    private router: Router,
+    public toastController: ToastController) { }
 
   setUser(tempuser: User) {
     this.user = tempuser;
+  }
+
+  updateUser() {
+    this.afstore.doc(`users/${this.user.uid}`).update(Object.assign({}, this.user));
+    this.presentToast('Updated Profile');
   }
 
   getUsername(): string {
     return this.user.email;
   }
 
-  reAuth(email: string, password: string) {
-    return this.afAuth.auth.currentUser.reauthenticateWithCredential(auth.EmailAuthProvider.credential(email, password));
+  async reAuth(email: string, password: string) {
+    try {
+      await this.afAuth.auth.currentUser.reauthenticateWithCredential(auth.EmailAuthProvider.credential(email, password));
+    } catch (err) {
+      this.presentToast(err);
+      console.dir(err);
+    }
   }
 
-  updatePassword(newpassword: string) {
-    return this.afAuth.auth.currentUser.updatePassword(newpassword);
+  async updatePassword(newpassword: string) {
+    try {
+      await this.afAuth.auth.currentUser.updatePassword(newpassword);
+    } catch (err) {
+      this.presentToast(err);
+      console.dir(err);
+    }
   }
 
-  updateEmail(newemail: string) {
-    return this.afAuth.auth.currentUser.updateEmail(newemail);
+  async updateEmail(newemail: string) {
+    try {
+      await this.afAuth.auth.currentUser.updateEmail(newemail);
+    } catch (err) {
+      this.presentToast(err);
+      console.dir(err);
+    }
   }
 
   async isAuthenticated() {
@@ -72,12 +94,20 @@ export class UserService {
   }
 
   async logout() {
-    this.setUser(undefined);
+    this.setUser(new User());
     try {
       await this.afAuth.auth.signOut();
       this.router.navigate(['/login']);
     } catch (e) {
       console.dir(e);
     }
+  }
+
+  async presentToast(err: string) {
+    const toast = await this.toastController.create({
+      message: err,
+      duration: 2000
+    });
+    toast.present();
   }
 }

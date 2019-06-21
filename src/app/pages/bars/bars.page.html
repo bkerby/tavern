@@ -17,8 +17,11 @@
       <br>
       {{bar.bar.description}}
       <div>
-        <ion-button size="small" (click)="toggleTabStatus($event.target)">Open Tab</ion-button>
-        <ion-button size="small" (click)="goToMenu('fhjdkslhfjksdlfh')">Menu</ion-button>
+        <ion-button size="small" *ngIf="!isTabOpen(bar.bar.bid)" (click)="openTab(bar.bar.bid)">Open Tab
+        </ion-button>
+        <ion-button size="small" *ngIf="isTabOpen(bar.bar.bid)" (click)="viewTab(bar.bar.bid)">View Tab
+        </ion-button>
+        <ion-button size="small" (click)="goToMenu(bar.bar.bid)">Menu</ion-button>
       </div>
     </ion-card-content>
   </ion-card>
