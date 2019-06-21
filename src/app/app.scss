@@ -13,3 +13,13 @@ ion-list-header {
 div {
     background: var(--ion-background-color);
 }
+
+.app-loading {
+  .logo {
+    width: 100px;
+    height: 100px;
+    
+    // this way asset gets processed by webpack 
+    background: url(../assets/icon/tavernMono.png) center center no-repeat;
+  }
+}
