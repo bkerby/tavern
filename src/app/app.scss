@@ -4,7 +4,12 @@
 // styles are for the entire app and not just one component. Additionally, this 
 // file can hold Sass mixins, functions, and placeholder classes to be imported 
 // and used throughout the application.
+@import '../theme/variables.scss';
 ion-list-header {
     font-size: 1em;
     font-weight: 700;
+}
+
+div {
+    background: var(--ion-background-color);
 }

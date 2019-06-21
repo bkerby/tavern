@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { BarService } from 'src/app/services/bar/bar.service';
+import { User } from 'src/app/types/user';
 
 @Component({
   selector: 'app-select-model',
@@ -10,17 +11,20 @@ import { BarService } from 'src/app/services/bar/bar.service';
 })
 export class SelectModelComponent implements OnInit {
 
-  selectedBartender: string = '';
+  @Input() bartenderList: User[] = [];
+  selectedBartender: string;
 
   constructor(
-    private modalContoller: ModalController,
-    private barService: BarService) { }
+    public modalController: ModalController) { }
 
   ngOnInit() {
-    this.barService.initBar();
   }
 
   closeModal() {
-    this.modalContoller.dismiss();
+    this.modalController.dismiss(this.selectedBartender);
+  }
+
+  selectedTest() {
+    console.log(this.selectedBartender);
   }
 }

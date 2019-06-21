@@ -10,8 +10,11 @@
 </ion-header>
 
 <ion-content>
-  Bartender: {{bartenderSelected}} <ion-button size="small" (click)="openModal()">Change Bartender
-  </ion-button>
+  <ion-select placeholder="Select Bartender" [(ngModel)]="bartenderSelected" okText="Okay" cancelText="Dismiss">
+    <ion-select-option *ngFor="let bartender of barService.bartenderList" value="{{bartender.uid}}">
+      {{bartender.fName}} {{bartender.lName}}
+    </ion-select-option>
+  </ion-select>
   <ion-grid>
     <ion-row>
       <ion-col>

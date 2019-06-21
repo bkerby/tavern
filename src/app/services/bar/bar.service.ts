@@ -1,21 +1,25 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
 import { Bar } from 'src/app/types/bar';
 import { User } from 'src/app/types/user';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BarService {
+export class BarService implements OnDestroy {
   bar: Bar = new Bar();
-  sub: any;
+  sub: Subscription;
   bartenderList: User[] = [];
 
   constructor(
     private afAuth: AngularFireAuth,
     private afstore: AngularFirestore) { }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
 
   setBar(tempBar: Bar) {
     this.bar = tempBar;

@@ -20,7 +20,7 @@ export class AddRemoveModalComponent implements OnInit, OnDestroy {
   allBartenders: User[];
 
   constructor(
-    private modalContoller: ModalController,
+    public modalController: ModalController,
     private afstore: AngularFirestore,
     private userService: UserService
   ) { }
@@ -36,7 +36,7 @@ export class AddRemoveModalComponent implements OnInit, OnDestroy {
   }
 
   closeModal() {
-    this.modalContoller.dismiss();
+    this.modalController.dismiss();
   }
 
   add(bid: string) {
