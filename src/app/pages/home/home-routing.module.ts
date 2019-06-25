@@ -6,7 +6,7 @@ const routes: Routes = [{
     path: '',
     component: HomePage,
     children: [
-        { path: '', redirectTo: '', pathMatch: 'full' },
+        { path: '', redirectTo: 'redirect', pathMatch: 'full' },
         { path: 'legal', loadChildren: '../legal/legal.module#LegalPageModule' },
         { path: 'account', loadChildren: '../account/account.module#AccountPageModule' },
         { path: 'tab/:id', loadChildren: '../tab/tab.module#TabPageModule' },
@@ -14,6 +14,7 @@ const routes: Routes = [{
         { path: 'bars', loadChildren: '../bars/bars.module#BarsPageModule' },
         { path: 'bar-admin', loadChildren: '../bar-admin/bar-admin.module#BarAdminPageModule' },
         { path: 'pos', loadChildren: '../pos/pos.module#PosPageModule' },
+        { path: 'redirect', loadChildren: '../redirect/redirect.module#RedirectPageModule' }
     ]
 }];
 

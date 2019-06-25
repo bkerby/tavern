@@ -28,15 +28,7 @@ export class HomePage implements OnInit {
       const tempUser: User = user as User;
       this.userService.setUser(tempUser);
       this.homePages = this.setHomePages(tempUser.type);
-      this.onLoadRoute(tempUser.type);
     });
-  }
-  onLoadRoute(type: string) {
-    if (type === 'c') {
-      this.router.navigate(['/home/bars']);
-    } else {
-      this.router.navigate(['/home/pos']);
-    }
   }
 
   setHomePages(userType: string) {

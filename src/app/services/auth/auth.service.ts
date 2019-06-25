@@ -6,7 +6,6 @@ import { UserService } from '../user/user.service';
 export class AuthService implements CanActivate {
 
   constructor(private router: Router, private user: UserService) {
-
   }
 
   async canActivate(route) {
