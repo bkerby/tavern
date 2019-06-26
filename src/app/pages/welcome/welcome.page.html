@@ -1,12 +1,20 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Welcome to Tavern</ion-title>
     <ion-button (click)="loginNav()" slot="end" fill="outline">Log In</ion-button>
     <ion-button (click)="registerNav()" slot="end" color="primary">Sign Up</ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-img src="../../assets/icon/tavernFullMono.png"></ion-img>
-  <p>This is Tavern description</p>
+  <div>
+    <ion-img src="../../assets/images/tavernFullMono.png"></ion-img>
+    <ion-button (click)="registerBusBarNav()">Register Bar</ion-button>
+    <p>Tavern allows the users to start tabs immediately at whichever bar,<br>
+      they’re currently at or going to. When ordering drinks, a bartender will<br>
+      then be able to add drinks to the tab. Since this tab is integrated with<br>
+      the application, a user can check what's been ordered, how much it was, and<br>
+      the current total. Most importantly, the user can pay off the tab and leave<br>
+      a tip through the application. There is no need for either the user<br>
+      or the bartender to seek each other out for tab closure.</p>
+  </div>
 </ion-content>

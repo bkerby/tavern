@@ -13,7 +13,7 @@ export class AuthService implements CanActivate {
       return true;
     }
 
-    this.router.navigate(['/login']);
+    this.router.navigate(['/welcome']);
     return false;
   }
 }

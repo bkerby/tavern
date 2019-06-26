@@ -21,4 +21,8 @@ export class WelcomePage implements OnInit {
     this.router.navigate(['/register']);
   }
 
+  registerBusBarNav() {
+    this.router.navigate(['/register-bus-bar']);
+  }
+
 }

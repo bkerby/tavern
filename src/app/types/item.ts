@@ -1,6 +1,7 @@
 export class Item {
     name: string;
     value: number;
-    desc: string;
+    desription: string;
+    recipe: string;
     iid: string;
 }

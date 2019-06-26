@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Tab } from 'src/app/types/tab';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tab',
@@ -10,7 +11,7 @@ import { Tab } from 'src/app/types/tab';
   styleUrls: ['./tab.page.scss'],
 })
 export class TabPage implements OnInit, OnDestroy {
-  sub: any;
+  sub: Subscription = new Subscription();
 
   constructor(
     private router: Router,
