@@ -11,12 +11,14 @@
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Personal data
+        Menu Name
       </mat-panel-title>
-      <mat-panel-description>
-        Type your name and age
-      </mat-panel-description>
     </mat-expansion-panel-header>
-    Test Test Test
+    <ion-list>
+      <ion-item (click)="util.goToNav('home/item/jksafkafj')">
+        This is an ion item
+      </ion-item>
+    </ion-list>
+    <mat-icon>home</mat-icon>
   </mat-expansion-panel>
 </ion-content>

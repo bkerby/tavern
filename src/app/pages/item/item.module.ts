@@ -5,14 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MenuPage } from './menu.page';
-import { MatExpansionModule, MatIconModule } from '@angular/material';
-
+import { ItemPage } from './item.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: MenuPage
+    component: ItemPage
   }
 ];
 
@@ -21,10 +19,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes),
-    MatExpansionModule,
-    MatIconModule
+    RouterModule.forChild(routes)
   ],
-  declarations: [MenuPage]
+  declarations: [ItemPage]
 })
-export class MenuPageModule { }
+export class ItemPageModule {}

@@ -14,7 +14,8 @@ const routes: Routes = [{
         { path: 'bars', loadChildren: '../bars/bars.module#BarsPageModule' },
         { path: 'bar-admin', loadChildren: '../bar-admin/bar-admin.module#BarAdminPageModule' },
         { path: 'pos', loadChildren: '../pos/pos.module#PosPageModule' },
-        { path: 'redirect', loadChildren: '../redirect/redirect.module#RedirectPageModule' }
+        { path: 'redirect', loadChildren: '../redirect/redirect.module#RedirectPageModule' },
+        { path: 'item/:id', loadChildren: '../item/item.module#ItemPageModule' },
     ]
 }];
 
