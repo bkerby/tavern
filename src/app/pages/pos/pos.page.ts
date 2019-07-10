@@ -3,6 +3,8 @@ import { PopoverController, ModalController } from '@ionic/angular';
 import { SelectModelComponent } from 'src/app/components/select-model/select-model.component';
 import { User } from 'src/app/types/user';
 import { BarService } from 'src/app/services/bar/bar.service';
+import { Tab } from 'src/app/types/tab';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-pos',
@@ -14,6 +16,7 @@ export class PosPage implements OnInit {
   tabSelected: string;
   bartenderSelected: string;
   itemsSelected: string[];
+  tabs: Tab[];
 
   constructor(
     public modalController: ModalController,
@@ -21,6 +24,8 @@ export class PosPage implements OnInit {
 
   ngOnInit() {
     this.barService.initBar();
+    this.barService.getTabs();
+    this.tabs = this.barService.tabs;
   }
 
   changeQuantity(num: number) {

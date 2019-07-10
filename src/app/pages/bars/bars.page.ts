@@ -81,7 +81,9 @@ export class BarsPage implements OnInit, OnDestroy, OnChanges {
     tempTab.bar = bid;
     tempTab.open = true;
     tempTab.tid = tempId;
-    tempTab.user = this.userService.getUID();
+    tempTab.user = this.userService.user.uid;
+    tempTab.userFName = this.userService.user.fName;
+    tempTab.userLName = this.userService.user.lName;
     tempTab.items = [];
     this.afstore.doc(`tabs/${tempId}`).set(Object.assign({}, tempTab));
   }

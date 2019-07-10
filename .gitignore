@@ -33,3 +33,7 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 *.cache
+
+## Cordova things
+resources
+config.xml

@@ -4,4 +4,6 @@ export class Tab {
     user: string;
     bar: string;
     open: boolean;
+    userFName: string;
+    userLName: string;
 }

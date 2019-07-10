@@ -64,6 +64,16 @@ export class HomePage implements OnInit {
             icon: 'clipboard'
           },
           {
+            title: 'Edit Menu',
+            url: 'edit-menu',
+            icon: 'book'
+          },
+          {
+            title: 'Edit Item',
+            url: 'edit-item',
+            icon: 'pricetag'
+          },
+          {
             title: 'Account',
             url: `account`,
             icon: 'person'
