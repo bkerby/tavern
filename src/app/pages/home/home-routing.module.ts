@@ -17,7 +17,9 @@ const routes: Routes = [{
         { path: 'redirect', loadChildren: '../redirect/redirect.module#RedirectPageModule' },
         { path: 'item/:id', loadChildren: '../item/item.module#ItemPageModule' },
         { path: 'edit-menu', loadChildren: '../edit-menu/edit-menu.module#EditMenuPageModule' },
-        { path: 'edit-item', loadChildren: '../edit-item/edit-item.module#EditItemPageModule' }
+        { path: 'edit-item', loadChildren: '../edit-item/edit-item.module#EditItemPageModule' },
+        { path: 'stripe-web', loadChildren: '../stripe-web/stripe.module#StripePageModule' }
+
     ]
 }];
 
