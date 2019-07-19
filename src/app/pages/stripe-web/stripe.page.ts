@@ -10,6 +10,7 @@ declare var Stripe;
 export class StripePage implements OnInit {
   stripe = Stripe('pk_test_t5FQVpORGWw0yHRLLyoGizlu00RXxzYBfX');
   card: any;
+  totalCost = 100;
 
   constructor(private http: HttpClient) {
   }
@@ -70,7 +71,7 @@ export class StripePage implements OnInit {
   makePayment(token) {
     this.http
       .post('https://us-central1-taverndev.cloudfunctions.net/payWithStripe', {
-        token: token.id
+        token: token.id, amount: this.totalCost
       })
       .subscribe(data => {
         console.log(data);

@@ -16,7 +16,7 @@ exports.payWithStripe = functions.https.onRequest((request, response) => {
     response.send(request);
     // eslint-disable-next-line promise/catch-or-return
     stripe.charges.create({
-        amount: 100,
+        amount: request.body.amount,
         currency: "usd",
         source: request.body.token,
     }).then((charge) => {

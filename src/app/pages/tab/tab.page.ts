@@ -5,6 +5,12 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Tab } from 'src/app/types/tab';
 import { Subscription } from 'rxjs';
 
+interface Tip {
+  bartender: string;
+  drinksServed: number;
+  tipTotal: number;
+}
+
 @Component({
   selector: 'app-tab',
   templateUrl: './tab.page.html',
@@ -12,6 +18,7 @@ import { Subscription } from 'rxjs';
 })
 export class TabPage implements OnInit, OnDestroy {
   sub: Subscription = new Subscription();
+  bartenderList
 
   constructor(
     private router: Router,
@@ -33,6 +40,10 @@ export class TabPage implements OnInit, OnDestroy {
         this.afstore.doc(`tabs/${(tab[0] as Tab).tid}`).update({ open: false });
       });
     this.router.navigate(['home/bars']);
+  }
+
+  splitTab(): boolean {
+    return true;
   }
 
 }
