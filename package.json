@@ -11,7 +11,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "deploy": "ng build && firebase deploy",
-    "deploy:prod": "ng build --prod && firebase deploy"
+    "deploy:prod": "ng build --prod && firebase deploy",
+    "compodoc": "compodoc -p src/tsconfig.app.json -s"
   },
   "private": true,
   "dependencies": {
@@ -32,7 +33,6 @@
     "@ionic/angular": "^4.5.0",
     "core-js": "^2.5.4",
     "firebase": "^6.2.0",
-    "mockfirebase": "^0.12.0",
     "rxjs": "~6.5.1",
     "tslib": "^1.10.0",
     "zone.js": "~0.8.29"

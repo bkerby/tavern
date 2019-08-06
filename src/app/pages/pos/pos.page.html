@@ -14,28 +14,42 @@
     <ion-row>
       <ion-col>
         <ion-list>
-          <ion-radio-group [(ngModel)]="tabSelected">
+          <ion-radio-group allow-empty-selection="true" name="radio-group">
             <ion-list-header>
-              Tabs
+              <ion-label>Tabs</ion-label>
             </ion-list-header>
+
+            <ion-item *ngFor="let tab of barService.tabs" (ionSelect)="radioSelect($event)">
+              <ion-label>{{ tab.userFName }} {{ tab.userLName }} Tab</ion-label>
+              <ion-radio slot="start" value="{{tab.tid}}"></ion-radio>
+            </ion-item>
+
+          </ion-radio-group>
+        </ion-list>
+        <!-- <ion-list>
+          <ion-list-header>
+            Tabs
+          </ion-list-header>
+          <ion-radio-group [(ngModel)]="tabSelected">
             <ion-item *ngFor="let tab of barService.tabs">
               <ion-label>{{ tab.userFName }} {{ tab.userLName }} Tab</ion-label>
               <ion-radio value="tab.tid"></ion-radio>
             </ion-item>
           </ion-radio-group>
-        </ion-list>
+        </ion-list> -->
       </ion-col>
       <ion-col>
         <ion-list-header>
           Add Items
         </ion-list-header>
         <ion-list>
-          <ion-item>
-            <ion-fab-button (click)="changeQuantity(-1)" size="small" slot="end" color="primary">
+          <ion-item *ngFor="let item of barService.items">
+            <ion-label>{{ item.name }}</ion-label>
+            <ion-fab-button (click)="removeItem(item.iid)" size="small" slot="end" color="primary">
               <ion-icon name="remove"></ion-icon>
             </ion-fab-button>
-            <span slot="end">{{quantity}}</span>
-            <ion-fab-button (click)="changeQuantity(1)" size="small" slot="end" color="secondary">
+            <span slot="end">{{ getQuantity(item.iid) }}</span>
+            <ion-fab-button (click)="addItem(item.iid)" size="small" slot="end" color="secondary">
               <ion-icon name="add"></ion-icon>
             </ion-fab-button>
           </ion-item>
@@ -54,6 +68,6 @@
         </ion-select-option>
       </ion-select>
     </ion-item>
-    <ion-button slot="end">Add to Tab</ion-button>
+    <ion-button slot="end" (click)="addItemsToTab()">Add to Tab</ion-button>
   </ion-toolbar>
 </ion-footer>

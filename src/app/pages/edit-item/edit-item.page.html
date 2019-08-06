@@ -4,11 +4,125 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Edit Item
+      Edit Items
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-list-header>
+    View/Remove Items
+  </ion-list-header>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div>
+          Name
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          Value
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          Description
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          Recipe
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          Menu Name
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          Remove
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let item of barService.items">
+      <ion-col>
+        <div>
+          {{item.name}}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{item.value}}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{item.description}}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{item.recipe}}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{item.menuName}}
+        </div>
+      </ion-col>
+      <ion-col>
+        <ion-fab-button (click)="removeItem(item.iid)" size="small" color="primary">
+          <ion-icon name="remove"></ion-icon>
+        </ion-fab-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list>
 
+    <!--  <ion-item *ngFor="let item of barService.items">
+      <ion-label>{{item.name}} {{item.value}} {{item.description}} {{item.recipe}} {{item.menuName}}</ion-label>
+      <ion-fab-button (click)="removeItem(item.iid)" size="small" slot="end" color="primary">
+        <ion-icon name="remove"></ion-icon>
+      </ion-fab-button>
+    </ion-item> -->
+
+  </ion-list>
+  <ion-list>
+    <ion-list-header>
+      Add Items
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label position="floating">Name</ion-label>
+      <ion-input type="item.name" [(ngModel)]="item.name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Cost</ion-label>
+      <ion-input type="number" [(ngModel)]="item.value"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-textarea type="text" [(ngModel)]="item.description"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Recipe</ion-label>
+      <ion-textarea type="text" [(ngModel)]="item.recipe"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Menu Name</ion-label>
+      <ion-input type="text" [(ngModel)]="item.menuName"></ion-input>
+    </ion-item>
+
+  </ion-list>
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button slot="end" (click)="addItem()">Add Item</ion-button>
+  </ion-toolbar>
+</ion-footer>

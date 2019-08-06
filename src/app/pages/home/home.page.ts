@@ -24,7 +24,6 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.afstore.doc(`users/${this.auth.auth.currentUser.uid}`).valueChanges().subscribe(user => {
-      console.log(user);
       const tempUser: User = user as User;
       this.userService.setUser(tempUser);
       this.homePages = this.setHomePages(tempUser.type);
@@ -62,11 +61,6 @@ export class HomePage implements OnInit {
             title: 'Bar Admin',
             url: 'bar-admin',
             icon: 'clipboard'
-          },
-          {
-            title: 'Edit Menu',
-            url: 'edit-menu',
-            icon: 'book'
           },
           {
             title: 'Edit Item',

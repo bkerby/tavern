@@ -4,6 +4,7 @@ import { User } from 'src/app/types/user';
 import { BarService } from 'src/app/services/bar/bar.service';
 import { Tab } from 'src/app/types/tab';
 import { UserService } from 'src/app/services/user/user.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-pos',
@@ -14,16 +15,20 @@ export class PosPage implements OnInit {
   quantity = 0;
   tabSelected: string;
   bartenderSelected: string;
-  itemsSelected: string[];
+  itemsSelected: string[] = [];
   tabs: Tab[];
+
 
   constructor(
     public modalController: ModalController,
-    private barService: BarService) { }
+    private barService: BarService,
+    public afstore: AngularFirestore
+  ) { }
 
   ngOnInit() {
     this.barService.initBar();
     this.barService.getTabs();
+    this.barService.getItems();
     this.tabs = this.barService.tabs;
   }
 
@@ -33,7 +38,26 @@ export class PosPage implements OnInit {
     }
   }
 
-  log(str) {
-    console.log(str);
+  addItemsToTab() {
+    this.afstore.doc(`tabs/${this.tabSelected}`).update(Object.assign({}));
+
+  }
+
+  addItem(iid: string) {
+    this.itemsSelected.push(iid);
+  }
+
+  removeItem(iid: string, quan: number) {
+    this.itemsSelected.splice(this.itemsSelected.indexOf(iid), 1);
+  }
+
+  radioSelect(event) {
+    this.tabSelected = event.detail.value;
+  }
+
+  getQuantity(iid: string): number {
+    let count = 0;
+    this.itemsSelected.forEach((i) => (i === iid && count++));
+    return count;
   }
 }

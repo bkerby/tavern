@@ -4,4 +4,6 @@ export class Item {
     desription: string;
     recipe: string;
     iid: string;
+    bid: string;
+    menuName: string;
 }

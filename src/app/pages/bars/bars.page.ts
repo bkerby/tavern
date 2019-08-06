@@ -46,13 +46,11 @@ export class BarsPage implements OnInit, OnDestroy, OnChanges {
         (tabs as Tab[]).forEach(tab => {
           this.allOpenTabList.push(tab.bar);
         });
-        console.log(this.allOpenTabList);
         this.sub = this.afstore.collection('bars').valueChanges().subscribe(bars => {
           this.bars = [];
           bars.forEach(bar => {
             this.bars.push({ bar: bar as Bar, tabOpen: this.allOpenTabList.includes((bar as Bar).bid) });
           });
-          console.log(this.bars);
         });
       });
   }
@@ -74,10 +72,8 @@ export class BarsPage implements OnInit, OnDestroy, OnChanges {
   }
 
   openTab(bid: string) {
-    console.log(bid);
     const tempTab: Tab = new Tab();
     const tempId = this.afstore.createId();
-    console.log(tempId);
     tempTab.bar = bid;
     tempTab.open = true;
     tempTab.tid = tempId;

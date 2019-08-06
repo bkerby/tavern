@@ -40,13 +40,11 @@ export class AddRemoveModalComponent implements OnInit, OnDestroy {
   }
 
   add(bid: string) {
-    console.log('Added User: ' + bid);
     this.bartenders.push(bid);
     this.updateBartenders();
   }
 
   remove(bid: string) {
-    console.log('Removed User: ' + bid);
     this.bartenders.splice(this.bartenders.indexOf(bid));
     this.updateBartenders();
   }

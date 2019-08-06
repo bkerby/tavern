@@ -5,6 +5,7 @@ import { Bar } from 'src/app/types/bar';
 import { User } from 'src/app/types/user';
 import { Subscription } from 'rxjs';
 import { Tab } from 'src/app/types/tab';
+import { Item } from 'src/app/types/item';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class BarService implements OnDestroy {
   sub: Subscription;
   bartenderList: User[] = [];
   tabs: Tab[];
+  items: Item[];
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -58,8 +60,19 @@ export class BarService implements OnDestroy {
       this.setBartenders((bar as Bar).bartenders);
       this.afstore.collection('tabs', ref => ref.where('bar', '==', (bar as Bar).bid)
         .where('open', '==', true)).valueChanges().subscribe(tabs => {
-          console.log(tabs);
           this.tabs = (tabs as Tab[]);
+        });
+    });
+  }
+
+  async getItems() {
+    await this.afstore.doc(`bars/${this.afAuth.auth.currentUser.uid}`).valueChanges().subscribe(bar => {
+      this.setBar(bar as Bar);
+      this.setBartenders((bar as Bar).bartenders);
+      this.afstore.collection('items', ref => ref.where('bid', '==', (bar as Bar).bid)
+        .orderBy('menuName', 'asc'))
+        .valueChanges().subscribe(items => {
+          this.items = (items as Item[]);
         });
     });
   }
