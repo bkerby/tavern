@@ -26,23 +26,13 @@
 
           </ion-radio-group>
         </ion-list>
-        <!-- <ion-list>
-          <ion-list-header>
-            Tabs
-          </ion-list-header>
-          <ion-radio-group [(ngModel)]="tabSelected">
-            <ion-item *ngFor="let tab of barService.tabs">
-              <ion-label>{{ tab.userFName }} {{ tab.userLName }} Tab</ion-label>
-              <ion-radio value="tab.tid"></ion-radio>
-            </ion-item>
-          </ion-radio-group>
-        </ion-list> -->
       </ion-col>
       <ion-col>
         <ion-list-header>
           Add Items
         </ion-list-header>
         <ion-list>
+
           <ion-item *ngFor="let item of barService.items">
             <ion-label>{{ item.name }}</ion-label>
             <ion-fab-button (click)="removeItem(item.iid)" size="small" slot="end" color="primary">
@@ -53,6 +43,7 @@
               <ion-icon name="add"></ion-icon>
             </ion-fab-button>
           </ion-item>
+
         </ion-list>
       </ion-col>
     </ion-row>
