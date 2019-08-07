@@ -53,7 +53,6 @@ export class StripePage implements OnInit {
     };
 
     this.card = elements.create('card', { style: style });
-    console.log(this.card);
     this.card.mount('#card-element');
 
     this.card.addEventListener('change', event => {

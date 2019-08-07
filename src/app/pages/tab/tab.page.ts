@@ -56,18 +56,21 @@ export class TabPage implements OnInit, OnDestroy {
   async initTabItems() {
     await this.afstore.collection('tabs', ref => ref
       .where('bar', '==', this.bid)
-      .where('user', '==', this.afauth.auth.currentUser.uid)).valueChanges().subscribe(tab => {
+      .where('user', '==', this.afauth.auth.currentUser.uid)
+      .where('open', '==', true)).valueChanges().subscribe(tab => {
         this.items = [];
         this.totalCost = 0;
-        this.tid = (tab[0] as Tab).tid;
-        this.itemsSelected = (tab[0] as Tab).items;
-        this.itemsSelected.forEach((item) => {
-          this.afstore.doc(`items/${item}`).valueChanges().subscribe((i) => {
-            const tempItem = i as Item;
-            this.totalCost = this.totalCost + tempItem.value;
-            this.items.push(tempItem);
+        if (tab[0]) {
+          this.tid = (tab[0] as Tab).tid;
+          this.itemsSelected = (tab[0] as Tab).items;
+          this.itemsSelected.forEach((item) => {
+            this.afstore.doc(`items/${item}`).valueChanges().subscribe((i) => {
+              const tempItem = i as Item;
+              this.totalCost = this.totalCost + tempItem.value;
+              this.items.push(tempItem);
+            });
           });
-        });
+        }
       });
   }
 
