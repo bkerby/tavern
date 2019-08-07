@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewChecked } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -7,26 +7,25 @@ import { Subscription } from 'rxjs';
 import { Item } from 'src/app/types/item';
 import { UtilitiesService } from 'src/app/services/utilities/utilities.service';
 import { HttpClient } from '@angular/common/http';
-declare var Stripe;
+declare let paypal: any;
 
-interface Tip {
-  bartender: string;
-  drinksServed: number;
-  tipTotal: number;
-}
 
 @Component({
   selector: 'app-tab',
   templateUrl: './tab.page.html',
   styleUrls: ['./tab.page.scss'],
 })
-export class TabPage implements OnInit, OnDestroy {
+export class TabPage implements OnInit, OnDestroy, AfterViewChecked {
   sub: Subscription = new Subscription();
   bid: string;
   tid: string;
   items: Item[] = [];
   totalCost = 0;
   itemsSelected: string[] = [];
+  paypalConfig: any;
+  currencyIcon = '$';
+  addScript = false;
+  paypalLoad = true;
 
   constructor(
     private router: Router,
@@ -39,14 +38,44 @@ export class TabPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.bid = this.route.snapshot.paramMap.get('id');
     this.initTabItems();
+    this.paypalConfig = {
+      style: {
+        color: 'blue',
+        shape: 'pill',
+        label: 'pay',
+        height: 40
+      },
+      env: 'sandbox',
+      client: {
+        sandbox: 'ATGlnUxyF58-fRgnqo7LvDaYkMYMjgueumgMwG0iei1Y8xcVe_E0KCWYeAczjWLwZ0sgwz4IPN8DVRp8',
+        production: '<your-production-key here>'
+      },
+      commit: true,
+      payment: (data, actions) => {
+        return actions.payment.create({
+          payment: {
+            transactions: [
+              { amount: { total: this.totalCost, currency: 'USD' } }
+            ]
+          }
+        });
+      },
+      onAuthorize: (data, actions) => {
+        return actions.payment.execute().then((payment) => {
+          this.utils.presentToast('Transaction was Completed');
+          this.closeTab();
+        });
+      },
+      onError: (err) => {
+        // Show an error page here, when an error occurs
+        console.dir(err);
+        this.utils.presentToast('The amount cannot be zero');
+      }
+    };
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
-  }
-
-  closeTab() {
-    this.router.navigate([`home/stripe-web/${this.bid}/${this.totalCost}`]);
   }
 
   splitTab(): boolean {
@@ -74,7 +103,34 @@ export class TabPage implements OnInit, OnDestroy {
       });
   }
 
-  totalCostFormater(tc: number): number {
-    return parseFloat('' + (Math.round(tc * 100) / 100).toFixed(2));
+  ngAfterViewChecked(): void {
+    if (!this.addScript) {
+      this.addPaypalScript().then(() => {
+        paypal.Button.render(this.paypalConfig, '#paypal-checkout-btn');
+        this.paypalLoad = false;
+      });
+    }
+  }
+
+  addPaypalScript() {
+    this.addScript = true;
+    return new Promise((resolve, reject) => {
+      const scripttagElement = document.createElement('script');
+      scripttagElement.src = 'https://www.paypalobjects.com/api/checkout.js';
+      scripttagElement.onload = resolve;
+      document.body.appendChild(scripttagElement);
+    });
+  }
+
+  async closeTab() {
+    await this.afstore.collection('tabs', ref => ref
+      .where('bar', '==', this.bid)
+      .where('user', '==', this.afauth.auth.currentUser.uid)
+      .where('open', '==', true)).valueChanges().subscribe(tab => {
+        if (tab[0]) {
+          this.afstore.doc(`tabs/${(tab[0] as Tab).tid}`).update({ open: false });
+        }
+      });
+    this.router.navigate(['home/bars']);
   }
 }

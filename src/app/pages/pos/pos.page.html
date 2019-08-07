@@ -60,14 +60,6 @@
 </ion-content>
 <ion-footer>
   <ion-toolbar>
-    <ion-item slot="end">
-      <ion-label>Select a Bartender</ion-label>
-      <ion-select placeholder="Select Bartender" [(ngModel)]="bartenderSelected" okText="Okay" cancelText="Dismiss">
-        <ion-select-option *ngFor="let bartender of barService.bartenderList" value="{{bartender.uid}}">
-          {{bartender.fName}} {{bartender.lName}}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
     <ion-button slot="end" (click)="addItemsToTab()">Add to Tab</ion-button>
   </ion-toolbar>
 </ion-footer>

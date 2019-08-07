@@ -66,6 +66,6 @@
   <ion-footer>
     <ion-toolbar>
       <ion-label slot="end">Total Cost: {{currencyIcon}}{{totalCost.toFixed(2)}}&nbsp;&nbsp;&nbsp;&nbsp;</ion-label>
-      <ion-button slot="end" (click)="closeTab()">Close Tab</ion-button>
+      <div slot="end" id="paypal-checkout-btn"></div>
     </ion-toolbar>
   </ion-footer>

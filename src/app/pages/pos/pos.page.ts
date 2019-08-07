@@ -13,7 +13,6 @@ import { firestore } from 'firebase/app';
 export class PosPage implements OnInit {
   quantity = 0;
   tabSelected: string;
-  bartenderSelected: string;
   itemsSelected: string[] = [];
   tabs: Tab[] = [];
 
