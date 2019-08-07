@@ -116,6 +116,5 @@ export class BarService implements OnDestroy {
       prevName = this.items[i].menuName;
       i++;
     }
-    console.log(this.menus);
   }
 }

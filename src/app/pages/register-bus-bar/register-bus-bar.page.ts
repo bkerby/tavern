@@ -35,15 +35,10 @@ export class RegisterBusBarPage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    // How to query a database
-    // this.sub = this.afstore.collection('users', ref => ref.where('fName', '==', 'Ben')).valueChanges().subscribe(user => {
-    //   console.log(user);
-    // });
     this.user.type = 'b';
   }
 
   ngOnDestroy() {
-    // this.sub.unsubscribe();
   }
 
   validPassword(password: string, cpassword: string) {

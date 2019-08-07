@@ -21,7 +21,6 @@ export class ItemPage implements OnInit {
     this.iid = this.route.snapshot.paramMap.get('id');
     this.afstore.doc(`items/${this.iid}`).valueChanges().subscribe(i => {
       this.item = i as Item;
-      console.log(this.item);
     });
   }
 

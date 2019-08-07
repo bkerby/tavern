@@ -36,11 +36,6 @@
             Recipe
           </div>
         </ion-col>
-        <ion-col>
-          <div>
-            Menu Name
-          </div>
-        </ion-col>
       </ion-row>
       <ion-row *ngFor="let item of menu.items" (click)="utils.goToItemPage(item.iid)">
         <ion-col>
@@ -61,11 +56,6 @@
         <ion-col>
           <div>
             {{item.recipe}}
-          </div>
-        </ion-col>
-        <ion-col>
-          <div>
-            {{item.menuName}}
           </div>
         </ion-col>
       </ion-row>
