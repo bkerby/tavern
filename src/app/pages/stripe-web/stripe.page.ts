@@ -88,8 +88,8 @@ export class StripePage implements OnInit {
       })
       .subscribe(data => {
         console.log(data);
-        this.closeTab();
       });
+    this.closeTab();
   }
 
   closeTab() {
