@@ -1,6 +1,4 @@
 /**
- * @export
- * @class Bar
  * Bar type
  */
 export class Bar {

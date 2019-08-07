@@ -7,10 +7,66 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div>
+          Name
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          Value
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          Description
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          Recipe
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          Menu Name
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let item of items" (click)="utils.goToItemPage(item.iid)">
+      <ion-col>
+        <div>
+          {{item.name}}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          ${{item.value.toFixed(2)}}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{item.description}}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{item.recipe}}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{item.menuName}}
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
 <ion-footer>
   <ion-toolbar>
+    <ion-label slot="end">${{totalCost.toFixed(2)}}&nbsp;&nbsp;&nbsp;&nbsp;</ion-label>
     <ion-button slot="end" (click)="closeTab()">Close Tab</ion-button>
   </ion-toolbar>
 </ion-footer>

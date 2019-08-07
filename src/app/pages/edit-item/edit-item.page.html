@@ -54,7 +54,7 @@
       </ion-col>
       <ion-col>
         <div>
-          {{item.value}}
+          ${{item.value.toFixed(2)}}
         </div>
       </ion-col>
       <ion-col>
@@ -80,13 +80,6 @@
     </ion-row>
   </ion-grid>
   <ion-list>
-
-    <!--  <ion-item *ngFor="let item of barService.items">
-      <ion-label>{{item.name}} {{item.value}} {{item.description}} {{item.recipe}} {{item.menuName}}</ion-label>
-      <ion-fab-button (click)="removeItem(item.iid)" size="small" slot="end" color="primary">
-        <ion-icon name="remove"></ion-icon>
-      </ion-fab-button>
-    </ion-item> -->
 
   </ion-list>
   <ion-list>

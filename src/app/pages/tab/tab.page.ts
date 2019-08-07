@@ -4,6 +4,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Tab } from 'src/app/types/tab';
 import { Subscription } from 'rxjs';
+import { Item } from 'src/app/types/item';
+import { UtilitiesService } from 'src/app/services/utilities/utilities.service';
 
 interface Tip {
   bartender: string;
@@ -18,15 +20,22 @@ interface Tip {
 })
 export class TabPage implements OnInit, OnDestroy {
   sub: Subscription = new Subscription();
-  bartenderList
+  bid: string;
+  tid: string;
+  items: Item[] = [];
+  totalCost = 0;
+  itemsSelected: string[] = [];
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private afstore: AngularFirestore,
-    private afauth: AngularFireAuth) { }
+    private afauth: AngularFireAuth,
+    private utils: UtilitiesService) { }
 
   ngOnInit() {
+    this.bid = this.route.snapshot.paramMap.get('id');
+    this.initTabItems();
   }
 
   ngOnDestroy() {
@@ -35,7 +44,7 @@ export class TabPage implements OnInit, OnDestroy {
 
   closeTab() {
     this.sub = this.afstore.collection('tabs', ref => ref
-      .where('bar', '==', this.route.snapshot.paramMap.get('id'))
+      .where('bar', '==', this.bid)
       .where('user', '==', this.afauth.auth.currentUser.uid)).valueChanges().subscribe(tab => {
         this.afstore.doc(`tabs/${(tab[0] as Tab).tid}`).update({ open: false });
       });
@@ -46,4 +55,23 @@ export class TabPage implements OnInit, OnDestroy {
     return true;
   }
 
+  async initTabItems() {
+    await this.afstore.collection('tabs', ref => ref
+      .where('bar', '==', this.bid)
+      .where('user', '==', this.afauth.auth.currentUser.uid)).valueChanges().subscribe(tab => {
+        this.tid = (tab[0] as Tab).tid;
+        this.itemsSelected = (tab[0] as Tab).items;
+        this.itemsSelected.forEach((item) => {
+          this.afstore.doc(`items/${item}`).valueChanges().subscribe((i) => {
+            const tempItem = i as Item;
+            this.totalCost = this.totalCost + tempItem.value;
+            this.items.push(tempItem);
+          });
+        });
+      });
+  }
+
+  totalCostFormater(tc: number): number {
+    return parseFloat('' + (Math.round(tc * 100) / 100).toFixed(2));
+  }
 }

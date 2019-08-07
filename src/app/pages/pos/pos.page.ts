@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { PopoverController, ModalController } from '@ionic/angular';
-import { User } from 'src/app/types/user';
+import { ModalController } from '@ionic/angular';
 import { BarService } from 'src/app/services/bar/bar.service';
 import { Tab } from 'src/app/types/tab';
-import { UserService } from 'src/app/services/user/user.service';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { firestore } from 'firebase/app';
 
 @Component({
   selector: 'app-pos',
@@ -16,7 +15,7 @@ export class PosPage implements OnInit {
   tabSelected: string;
   bartenderSelected: string;
   itemsSelected: string[] = [];
-  tabs: Tab[];
+  tabs: Tab[] = [];
 
 
   constructor(
@@ -38,9 +37,25 @@ export class PosPage implements OnInit {
     }
   }
 
-  addItemsToTab() {
-    this.afstore.doc(`tabs/${this.tabSelected}`).update(Object.assign({}));
+  async addItemsToTab() {
+    const ts = this.tabSelected;
+    let i = 0;
+    this.barService.tabs.forEach(t => {
+      if (t.tid === this.tabSelected) {
+        return;
+      }
+      i++;
+    });
+    const tempItems = this.barService.tabs[i].items;
+    this.afstore.doc(`tabs/${this.tabSelected}`).update({
+      items: tempItems.concat(this.itemsSelected)
+    });
+    this.reset();
+  }
 
+  reset() {
+    this.itemsSelected = [];
+    this.tabSelected = null;
   }
 
   addItem(iid: string) {

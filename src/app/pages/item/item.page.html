@@ -8,5 +8,29 @@
 </ion-header>
 
 <ion-content>
+  <ion-list>
+    <ion-label>&nbsp;Name:&nbsp;</ion-label>
+    {{item.name}}
+  </ion-list>
+
+  <ion-list>
+    <ion-label>&nbsp;Cost:&nbsp;</ion-label>
+    ${{item.value.toFixed(2)}}
+  </ion-list>
+
+  <ion-list>
+    <ion-label>&nbsp;Description:&nbsp;</ion-label>
+    {{item.description}}
+  </ion-list>
+
+  <ion-list>
+    <ion-label>&nbsp;Recipe:&nbsp;</ion-label>
+    {{item.recipe}}
+  </ion-list>
+
+  <ion-list>
+    <ion-label>&nbsp;Menu:&nbsp;</ion-label>
+    {{item.menuName}}
+  </ion-list>
 
 </ion-content>

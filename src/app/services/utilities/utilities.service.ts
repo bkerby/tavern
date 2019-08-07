@@ -15,6 +15,10 @@ export class UtilitiesService {
     this.router.navigate([url]);
   }
 
+  goToItemPage(iid: string) {
+    this.router.navigate(['/home/item/' + iid]);
+  }
+
   async presentToast(err: string) {
     const toast = await this.toastController.create({
       message: err,

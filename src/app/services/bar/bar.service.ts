@@ -16,6 +16,7 @@ export class BarService implements OnDestroy {
   bartenderList: User[] = [];
   tabs: Tab[];
   items: Item[];
+  menus: { menuName: string, items: Item[] }[] = [{ menuName: '', items: [] }];
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -35,6 +36,13 @@ export class BarService implements OnDestroy {
 
   initBar() {
     this.afstore.doc(`bars/${this.afAuth.auth.currentUser.uid}`).valueChanges().subscribe(bar => {
+      this.setBar(bar as Bar);
+      this.setBartenders((bar as Bar).bartenders);
+    });
+  }
+
+  initBarWBid(bid: string) {
+    this.afstore.doc(`bars/${bid}`).valueChanges().subscribe(bar => {
       this.setBar(bar as Bar);
       this.setBartenders((bar as Bar).bartenders);
     });
@@ -73,7 +81,41 @@ export class BarService implements OnDestroy {
         .orderBy('menuName', 'asc'))
         .valueChanges().subscribe(items => {
           this.items = (items as Item[]);
+          this.menuParser();
         });
     });
+  }
+
+  async getItemsWBid(bid: string) {
+    await this.afstore.doc(`bars/${bid}`).valueChanges().subscribe(bar => {
+      this.setBar(bar as Bar);
+      this.setBartenders((bar as Bar).bartenders);
+      this.afstore.collection('items', ref => ref.where('bid', '==', (bar as Bar).bid)
+        .orderBy('menuName', 'asc'))
+        .valueChanges().subscribe(items => {
+          this.items = (items as Item[]);
+          this.menuParser();
+        });
+    });
+  }
+
+  menuParser() {
+    let prevName = this.items[0].menuName;
+    let i = 0;
+    let j = 0;
+    for (const item of this.items) {
+      if (prevName === this.items[i].menuName) {
+        this.menus[j].menuName = this.items[i].menuName;
+        this.menus[j].items.push(item);
+      } else {
+        j++;
+        this.menus[j] = { menuName: '', items: [] };
+        this.menus[j].menuName = this.items[i].menuName;
+        this.menus[j].items.push(item);
+      }
+      prevName = this.items[i].menuName;
+      i++;
+    }
+    console.log(this.menus);
   }
 }
