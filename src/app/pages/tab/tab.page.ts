@@ -67,9 +67,8 @@ export class TabPage implements OnInit, OnDestroy, AfterViewChecked {
         });
       },
       onError: (err) => {
-        // Show an error page here, when an error occurs
         console.dir(err);
-        this.utils.presentToast('The amount cannot be zero');
+        this.utils.presentToast('Error: Transaction not completed');
       }
     };
   }
@@ -104,7 +103,7 @@ export class TabPage implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   ngAfterViewChecked(): void {
-    if (!this.addScript) {
+    if (!this.addScript && this.totalCost > 0) {
       this.addPaypalScript().then(() => {
         paypal.Button.render(this.paypalConfig, '#paypal-checkout-btn');
         this.paypalLoad = false;
