@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Tab } from 'src/app/types/tab';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UtilitiesService } from 'src/app/services/utilities/utilities.service';
 declare var Stripe;
 
 @Component({
@@ -23,7 +24,8 @@ export class StripePage implements OnInit {
     private afstore: AngularFirestore,
     private afauth: AngularFireAuth,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private utils: UtilitiesService
   ) {
   }
 
@@ -73,6 +75,7 @@ export class StripePage implements OnInit {
         if (result.error) {
           const errorElement = document.getElementById('card-errors');
           errorElement.textContent = result.error.message;
+          this.utils.presentToast(result.error.message);
         } else {
           console.log(result);
           this.makePayment(result);
