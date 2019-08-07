@@ -63,10 +63,9 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-</ion-content>
-<ion-footer>
-  <ion-toolbar>
-    <ion-label slot="end">${{totalCost.toFixed(2)}}&nbsp;&nbsp;&nbsp;&nbsp;</ion-label>
-    <ion-button slot="end" (click)="closeTab()">Close Tab</ion-button>
-  </ion-toolbar>
-</ion-footer>
+  <ion-footer>
+    <ion-toolbar>
+      <ion-label slot="end">Total Cost: {{currencyIcon}}{{totalCost.toFixed(2)}}&nbsp;&nbsp;&nbsp;&nbsp;</ion-label>
+      <ion-button slot="end" (click)="closeTab()">Close Tab</ion-button>
+    </ion-toolbar>
+  </ion-footer>

@@ -1,6 +1,6 @@
 export class Item {
     name: string;
-    value: number;
+    value = 0;
     desription: string;
     recipe: string;
     iid: string;

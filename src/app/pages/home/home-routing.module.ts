@@ -17,7 +17,7 @@ const routes: Routes = [{
         { path: 'redirect', loadChildren: '../redirect/redirect.module#RedirectPageModule' },
         { path: 'item/:id', loadChildren: '../item/item.module#ItemPageModule' },
         { path: 'edit-item', loadChildren: '../edit-item/edit-item.module#EditItemPageModule' },
-        { path: 'stripe-web', loadChildren: '../stripe-web/stripe.module#StripePageModule' }
+        { path: 'stripe-web/:bid/:totalCost', loadChildren: '../stripe-web/stripe.module#StripePageModule' }
     ]
 }];
 

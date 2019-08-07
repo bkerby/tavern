@@ -6,6 +6,8 @@ import { Tab } from 'src/app/types/tab';
 import { Subscription } from 'rxjs';
 import { Item } from 'src/app/types/item';
 import { UtilitiesService } from 'src/app/services/utilities/utilities.service';
+import { HttpClient } from '@angular/common/http';
+declare var Stripe;
 
 interface Tip {
   bartender: string;
@@ -31,7 +33,8 @@ export class TabPage implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private afstore: AngularFirestore,
     private afauth: AngularFireAuth,
-    private utils: UtilitiesService) { }
+    private utils: UtilitiesService
+  ) { }
 
   ngOnInit() {
     this.bid = this.route.snapshot.paramMap.get('id');
@@ -43,12 +46,7 @@ export class TabPage implements OnInit, OnDestroy {
   }
 
   closeTab() {
-    this.sub = this.afstore.collection('tabs', ref => ref
-      .where('bar', '==', this.bid)
-      .where('user', '==', this.afauth.auth.currentUser.uid)).valueChanges().subscribe(tab => {
-        this.afstore.doc(`tabs/${(tab[0] as Tab).tid}`).update({ open: false });
-      });
-    this.router.navigate(['home/bars']);
+    this.router.navigate([`home/stripe-web/${this.bid}/${this.totalCost}`]);
   }
 
   splitTab(): boolean {
@@ -59,6 +57,8 @@ export class TabPage implements OnInit, OnDestroy {
     await this.afstore.collection('tabs', ref => ref
       .where('bar', '==', this.bid)
       .where('user', '==', this.afauth.auth.currentUser.uid)).valueChanges().subscribe(tab => {
+        this.items = [];
+        this.totalCost = 0;
         this.tid = (tab[0] as Tab).tid;
         this.itemsSelected = (tab[0] as Tab).items;
         this.itemsSelected.forEach((item) => {
