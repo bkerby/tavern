@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { auth } from 'firebase/app';
 
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
@@ -101,7 +100,11 @@ export class RegisterBusBarPage implements OnInit, OnDestroy {
 
       this.user.email = res.user.email;
       this.user.uid = res.user.uid;
-      this.user.bid = res.user.uid;
+      if (this.user.type === 'a') {
+        this.user.bid = res.user.uid;
+      } else {
+        this.user.bid = this.barSelected;
+      }
 
       this.afstore.doc(`users/${res.user.uid}`).set(Object.assign({}, this.user));
       this.userService.setUser(this.user);
