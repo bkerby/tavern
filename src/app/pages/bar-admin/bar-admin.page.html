@@ -28,6 +28,57 @@
     </ion-item>
 
   </ion-list>
+  <ion-list>
+    <ion-list-header>
+      {{ barService.bar.name }}'s Bartenders
+    </ion-list-header>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div>
+            First Name
+          </div>
+        </ion-col>
+        <ion-col>
+          <div>
+            Last Name
+          </div>
+        </ion-col>
+        <ion-col>
+          <div>
+            Email
+          </div>
+        </ion-col>
+        <ion-col>
+          <div>
+            Type
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let user of barService.bartenders">
+        <ion-col>
+          <div>
+            {{user.fName}}
+          </div>
+        </ion-col>
+        <ion-col>
+          <div>
+            {{user.lName}}
+          </div>
+        </ion-col>
+        <ion-col>
+          <div>
+            {{user.email}}
+          </div>
+        </ion-col>
+        <ion-col>
+          <div>
+            {{user.type === 'a' ? 'Owner' : 'Bartender'}}
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
 </ion-content>
 <ion-footer>
   <ion-toolbar>

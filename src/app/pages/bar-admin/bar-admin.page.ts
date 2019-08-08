@@ -18,5 +18,6 @@ export class BarAdminPage implements OnInit {
 
   ngOnInit() {
     this.barService.initBar();
+    this.barService.initBartenders();
   }
 }

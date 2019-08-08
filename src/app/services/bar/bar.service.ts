@@ -13,7 +13,7 @@ import { Item } from 'src/app/types/item';
 export class BarService implements OnDestroy {
   bar: Bar = new Bar();
   sub: Subscription;
-  bartenderList: User[] = [];
+  bartenders: User[] = [];
   tabs: Tab[];
   items: Item[];
   menus: { menuName: string, items: Item[] }[] = [{ menuName: '', items: [] }];
@@ -114,5 +114,12 @@ export class BarService implements OnDestroy {
         i++;
       }
     }
+  }
+
+  async initBartenders() {
+    await this.afstore.collection('users', ref => ref.where('bid', '==', this.afAuth.auth.currentUser.uid))
+      .valueChanges().subscribe(users => {
+        this.bartenders = (users as User[]);
+      });
   }
 }
