@@ -6,7 +6,6 @@ import { Tab } from 'src/app/types/tab';
 import { Subscription } from 'rxjs';
 import { Item } from 'src/app/types/item';
 import { UtilitiesService } from 'src/app/services/utilities/utilities.service';
-import { HttpClient } from '@angular/common/http';
 declare let paypal: any;
 
 
@@ -20,6 +19,7 @@ export class TabPage implements OnInit, OnDestroy, AfterViewChecked {
   bid: string;
   tid: string;
   items: Item[] = [];
+  tip = 20;
   totalCost = 0;
   itemsSelected: string[] = [];
   paypalConfig: any;
@@ -55,7 +55,7 @@ export class TabPage implements OnInit, OnDestroy, AfterViewChecked {
         return actions.payment.create({
           payment: {
             transactions: [
-              { amount: { total: this.totalCost, currency: 'USD' } }
+              { amount: { total: this.totalCost + this.getTipAmount(), currency: 'USD' } }
             ]
           }
         });
@@ -131,5 +131,9 @@ export class TabPage implements OnInit, OnDestroy, AfterViewChecked {
         }
       });
     this.router.navigate(['home/bars']);
+  }
+
+  getTipAmount(): number {
+    return this.totalCost * (this.tip / 100);
   }
 }

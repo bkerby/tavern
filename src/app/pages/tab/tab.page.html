@@ -53,9 +53,16 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <ion-item>
+    Tip: 10%
+    <ion-range [(ngModel)]="tip" min="10" max="100" step="5" pin="true" snaps="true" color="primary"></ion-range>
+    100%
+  </ion-item>
   <ion-footer>
     <ion-toolbar>
-      <ion-label slot="end">Total Cost: {{currencyIcon}}{{totalCost.toFixed(2)}}&nbsp;&nbsp;&nbsp;&nbsp;</ion-label>
+      <ion-label slot="end">Total Cost:
+        {{currencyIcon}}{{totalCost.toFixed(2)}}&nbsp;+&nbsp;${{ getTipAmount().toFixed(2) }}&nbsp;tip&nbsp;&nbsp;&nbsp;
+      </ion-label>
       <div slot="end" id="paypal-checkout-btn"></div>
     </ion-toolbar>
   </ion-footer>
