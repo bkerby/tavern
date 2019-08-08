@@ -23,7 +23,6 @@ export class TabPage implements OnInit, OnDestroy, AfterViewChecked {
   totalCost = 0;
   itemsSelected: string[] = [];
   paypalConfig: any;
-  currencyIcon = '$';
   addScript = false;
   paypalLoad = true;
 
@@ -55,7 +54,7 @@ export class TabPage implements OnInit, OnDestroy, AfterViewChecked {
         return actions.payment.create({
           payment: {
             transactions: [
-              { amount: { total: this.totalCost + this.getTipAmount(), currency: 'USD' } }
+              { amount: { total: (this.totalCost + this.getTipAmount()).toFixed(2), currency: 'USD' } }
             ]
           }
         });
