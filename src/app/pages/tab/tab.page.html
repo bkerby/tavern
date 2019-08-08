@@ -19,16 +19,6 @@
           Value
         </div>
       </ion-col>
-      <ion-col>
-        <div>
-          Description
-        </div>
-      </ion-col>
-      <ion-col>
-        <div>
-          Recipe
-        </div>
-      </ion-col>
     </ion-row>
     <ion-row *ngFor="let item of items" (click)="utils.goToItemPage(item.iid)">
       <ion-col>
@@ -39,16 +29,6 @@
       <ion-col>
         <div>
           ${{item.value.toFixed(2)}}
-        </div>
-      </ion-col>
-      <ion-col>
-        <div>
-          {{item.description}}
-        </div>
-      </ion-col>
-      <ion-col>
-        <div>
-          {{item.recipe}}
         </div>
       </ion-col>
     </ion-row>
