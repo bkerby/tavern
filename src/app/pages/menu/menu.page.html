@@ -8,57 +8,59 @@
 </ion-header>
 
 <ion-content>
-  <mat-expansion-panel *ngFor="let menu of barService.menus">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{ menu.menuName }}
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <div>
-            Name
-          </div>
-        </ion-col>
-        <ion-col>
-          <div>
-            Value
-          </div>
-        </ion-col>
-        <ion-col>
-          <div>
-            Description
-          </div>
-        </ion-col>
-        <ion-col>
-          <div>
-            Recipe
-          </div>
-        </ion-col>
-      </ion-row>
-      <ion-row *ngFor="let item of menu.items" (click)="utils.goToItemPage(item.iid)">
-        <ion-col>
-          <div>
-            {{item.name}}
-          </div>
-        </ion-col>
-        <ion-col>
-          <div>
-            ${{item.value.toFixed(2)}}
-          </div>
-        </ion-col>
-        <ion-col>
-          <div>
-            {{item.description}}
-          </div>
-        </ion-col>
-        <ion-col>
-          <div>
-            {{item.recipe}}
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </mat-expansion-panel>
+  <div *ngIf="barService.menus[0].items.length !== 0">
+    <mat-expansion-panel *ngFor="let menu of barService.menus">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ menu.menuName }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div>
+              Name
+            </div>
+          </ion-col>
+          <ion-col>
+            <div>
+              Value
+            </div>
+          </ion-col>
+          <ion-col>
+            <div>
+              Description
+            </div>
+          </ion-col>
+          <ion-col>
+            <div>
+              Recipe
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let item of menu.items" (click)="utils.goToItemPage(item.iid)">
+          <ion-col>
+            <div>
+              {{item.name}}
+            </div>
+          </ion-col>
+          <ion-col>
+            <div>
+              ${{item.value.toFixed(2)}}
+            </div>
+          </ion-col>
+          <ion-col>
+            <div>
+              {{item.description}}
+            </div>
+          </ion-col>
+          <ion-col>
+            <div>
+              {{item.recipe}}
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </mat-expansion-panel>
+  </div>
 </ion-content>

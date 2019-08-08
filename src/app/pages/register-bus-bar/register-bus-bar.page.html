@@ -29,6 +29,7 @@
     </ion-item>
 
     <ion-list>
+
       <ion-radio-group [(ngModel)]="user.type">
         <ion-list-header>
           User Type
@@ -43,28 +44,40 @@
           <ion-radio value="b"></ion-radio>
         </ion-item>
       </ion-radio-group>
-
-      <ion-card *ngIf="user.type === 'a'">
-        <ion-list>
-
-          <ion-item>
-            <ion-label position="floating">Bar Name</ion-label>
-            <ion-input type="text" [(ngModel)]="bar.name"></ion-input>
-          </ion-item>
-
-          <ion-item>
-            <ion-label position="floating">Bar Description</ion-label>
-            <ion-textarea type="text" [(ngModel)]="bar.description"></ion-textarea>
-          </ion-item>
-
-          <ion-item>
-            <ion-label position="floating">Bar Address</ion-label>
-            <ion-input type="text" [(ngModel)]="bar.address"></ion-input>
-          </ion-item>
-
-        </ion-list>
-      </ion-card>
     </ion-list>
+
+    <ion-card *ngIf="user.type === 'b'">
+      <ion-radio-group [(ngModel)]="user.bid">
+        <ion-list-header>
+          Which Bar do you work at?
+        </ion-list-header>
+        <ion-item *ngFor="let bar of bars">
+          <ion-label>{{bar.name}}</ion-label>
+          <ion-radio value="{{bar.bid}}"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-card>
+
+    <ion-card *ngIf="user.type === 'a'">
+      <ion-list>
+
+        <ion-item>
+          <ion-label position="floating">Bar Name</ion-label>
+          <ion-input type="text" [(ngModel)]="bar.name"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Bar Description</ion-label>
+          <ion-textarea type="text" [(ngModel)]="bar.description"></ion-textarea>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Bar Address</ion-label>
+          <ion-input type="text" [(ngModel)]="bar.address"></ion-input>
+        </ion-item>
+
+      </ion-list>
+    </ion-card>
 
     <ion-item [hidden]="shouldHide">
       <div class="show-requirements">

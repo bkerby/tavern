@@ -4,4 +4,5 @@ export class User {
     lName: string;
     email: string;
     type: string;
+    bid: string;
 }

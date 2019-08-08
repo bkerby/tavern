@@ -15,7 +15,6 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import firebaseConfig from './config/firebase';
 import { UserService } from './services/user/user.service';
 import { AuthService } from './services/auth/auth.service';
-import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 
@@ -29,7 +28,6 @@ import { MatButtonModule, MatCheckboxModule } from '@angular/material';
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    SharedModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatCheckboxModule

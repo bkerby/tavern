@@ -6,6 +6,7 @@ import { User } from 'src/app/types/user';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { BarService } from '../bar/bar.service';
 
 @Injectable()
 export class UserService {
@@ -16,6 +17,7 @@ export class UserService {
     private afAuth: AngularFireAuth,
     private afstore: AngularFirestore,
     private router: Router,
+    private barService: BarService,
     public toastController: ToastController) { }
 
   setUser(tempuser: User) {
@@ -87,9 +89,21 @@ export class UserService {
     return this.user;
   }
 
-  initUser() {
-    this.afstore.doc(`users/${this.afAuth.auth.currentUser.uid}`).valueChanges().subscribe(user => {
+  getBid(): string {
+    return this.user.bid;
+  }
+
+  async initUser() {
+    await this.afstore.doc(`users/${this.afAuth.auth.currentUser.uid}`).valueChanges().subscribe(user => {
       this.setUser(user as User);
+    });
+  }
+
+  async initBartender() {
+    await this.afstore.doc(`users/${this.afAuth.auth.currentUser.uid}`).valueChanges().subscribe(user => {
+      this.setUser(user as User);
+      this.barService.getTabsWBid(this.getBid());
+      this.barService.getItemsWBid(this.getBid());
     });
   }
 

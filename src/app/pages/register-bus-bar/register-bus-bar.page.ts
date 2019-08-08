@@ -19,12 +19,13 @@ export class RegisterBusBarPage implements OnInit, OnDestroy {
   email = '';
   password = '';
   cpassword = '';
-  test = '';
+  barSelected = '';
 
   shouldHide = true;
   user: User = new User();
   sub: any;
   bar: Bar = new Bar();
+  bars: Bar[] = [];
 
   constructor(
     public afAuth: AngularFireAuth,
@@ -36,6 +37,7 @@ export class RegisterBusBarPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.user.type = 'b';
+    this.getBars();
   }
 
   ngOnDestroy() {
@@ -99,6 +101,7 @@ export class RegisterBusBarPage implements OnInit, OnDestroy {
 
       this.user.email = res.user.email;
       this.user.uid = res.user.uid;
+      this.user.bid = res.user.uid;
 
       this.afstore.doc(`users/${res.user.uid}`).set(Object.assign({}, this.user));
       this.userService.setUser(this.user);
@@ -126,5 +129,14 @@ export class RegisterBusBarPage implements OnInit, OnDestroy {
       return '0' + num;
     }
     return '' + num;
+  }
+
+  async getBars() {
+    await this.afstore.collection('bars').valueChanges().subscribe(bars => {
+      this.bars = [];
+      bars.forEach(bar => {
+        this.bars.push(bar as Bar);
+      });
+    });
   }
 }

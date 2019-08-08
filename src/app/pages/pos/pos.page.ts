@@ -4,6 +4,7 @@ import { BarService } from 'src/app/services/bar/bar.service';
 import { Tab } from 'src/app/types/tab';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { firestore } from 'firebase/app';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-pos',
@@ -20,13 +21,17 @@ export class PosPage implements OnInit {
   constructor(
     public modalController: ModalController,
     private barService: BarService,
+    private userService: UserService,
     public afstore: AngularFirestore
   ) { }
 
   ngOnInit() {
-    this.barService.initBar();
-    this.barService.getTabs();
-    this.barService.getItems();
+    if (this.userService.getType() === 'a') {
+      this.barService.getTabs();
+      this.barService.getItems();
+    } else {
+      this.userService.initBartender();
+    }
     this.tabs = this.barService.tabs;
   }
 

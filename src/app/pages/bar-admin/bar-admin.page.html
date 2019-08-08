@@ -27,17 +27,6 @@
       <ion-input type="text" [(ngModel)]="barService.bar.address"></ion-input>
     </ion-item>
 
-    <ion-item>
-      Bartenders:&nbsp;<ion-chip *ngFor="let bartender of barService.bartenderList" color="secondary">
-        <ion-label>{{ bartender.fName }} {{ bartender.lName }}</ion-label>
-        <ion-icon name="person"></ion-icon>
-      </ion-chip>
-    </ion-item>
-
-    <ion-item>
-      <ion-button (click)="openModal('Bartender')">Add/Remove Bartender(s)</ion-button>
-    </ion-item>
-
   </ion-list>
 </ion-content>
 <ion-footer>
